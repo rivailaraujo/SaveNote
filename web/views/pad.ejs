@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Realtime Markdown Viewer</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/default.min.css">
+</head>
+
+<body class="container-fluid">
+    <!-- <button id = "savebuttom">Salvar</button> -->
+    <section class="row">
+        <div class="col-md-6 full-height"><textarea id="teste"><%= inputTexto %></textarea></div>
+         <!-- <div class="col-md-6 full-height"><div class="CodeMirror-sizer" style="border-left-width: 0px;" id="markdown"></div> </div> -->
+        <!-- <textarea class="col-md-4 full-height" id="pad"><%= inputTexto %></textarea>-->
+        
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script src="script.js"></script>
+
+
+</body>
+</html>
