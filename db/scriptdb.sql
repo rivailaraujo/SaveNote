@@ -21,7 +21,7 @@ USE `savenote_db` ;
 -- Table `savenote_db`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `savenote_db`.`usuario` (
-  `id_usuario` INT NOT NULL AUTO_INCREMENT,
+  `id_usuario` INT NOT NULL AUTO_INCREMENT UNIQUE,
   `nome` VARCHAR(50) NOT NULL,
   `imagem` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
