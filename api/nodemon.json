@@ -2,7 +2,7 @@
     "env" : {
         "MYSQL_USER": "root",
         "MYSQL_PASSWORD": "",
-        "MYSQL_DATABASE": "db",
+        "MYSQL_DATABASE": "savenote_db",
         "MYSQL_HOST" : "localhost",
         "MYSQL_PORT" :  3306
     }
