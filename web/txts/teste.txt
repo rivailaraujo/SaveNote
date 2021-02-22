@@ -69,7 +69,6 @@ A função `rate()` é declarada da seguinte forma:
 ``` js
 function rate(itemId, type)
 ```
-
 - `itemId` refere-se ao id do item avaliado de sua escolha.
 - `type` refere-se ao tipo de avaliação. (1- Five-Stars, 2- Thumbs, 3- Slider)
 
