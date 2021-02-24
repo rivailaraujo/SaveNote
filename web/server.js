@@ -38,4 +38,13 @@ app.get('/', function(req, res) {
   
 });
 
+app.get('/auth', function(req, res) {
+    //console.log("Entrou na rota /")
+        
+        res.render('auth');
+  
+});
+
+
+
 
