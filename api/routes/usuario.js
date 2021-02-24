@@ -1,49 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const mysql = require('../mysql').pool;
+const mysql = require("../mysql").pool;
+//const bcrypt = require("bcrypt");
+const controllerUsuario = require('../controllers/usuario-controller')
+const login = require("../middleware/login");
 
-router.get('/', (req, res, next) => {
-    mysql.getConnection((error, conn) => {
-        conn.query(
-            "SELECT * FROM `usuario`",
-            (error, resultado, field) => {
-                conn.release();
+router.get("/", login.obrigatorio, controllerUsuario.getUsuarios);
 
-                if(error){
-                    res.status(500).send({
-                        error: error,
-                        response: null
-                    });
-                }
-                res.status(201).send({
-                    mensagem: 'GET USUARIO',
-                });
-            }
-        )
-    });
-});
+router.post("/", controllerUsuario.postUsuario);
 
-router.post('/', (req, res, next) => {
-        mysql.getConnection((error, conn) => {
-            conn.query(
-                "INSERT INTO usuario (username, img, email, password, create_time) VALUES (?,'web/public/img', ?, ?, NOW())",
-                [req.body.nome, req.body.email, req.body.senha],
-                (error, resultado, field) => {
-                    conn.release();
+router.post("/login", controllerUsuario.loginUsuario);
 
-                    if(error){
-                        res.status(500).send({
-                            error: error,
-                            response: null
-                        });
-                    }
-                    res.status(201).send({
-                        mensagem: 'Usuario inserido com sucesso',
-                        id_produto: resultado.insertId
-                    });
-                }
-            )
-        });
-    });
+router.post("/logout", login.obrigatorio, controllerUsuario.logoutUsuario);
+//router.post("/teste", login, controllerUsuario.loginUsuario);
 
 module.exports = router;
