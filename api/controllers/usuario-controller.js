@@ -5,23 +5,16 @@ const jwt = require("jsonwebtoken");
 exports.postUsuario = async (req, res, next) => {
     try {
 
-        var response = await mysql.execute(
-            "SELECT * FROM usuario WHERE email = ? AND nome = ?;",
-            [req.body.email, req.body.nome]
-        );
-        if (response.length > 0) {
-            return res.status(401).send({
-                mensagem: "Nome e Email ja cadastrado",
-            });
-        }
+       
 
-        response = await mysql.execute(
+        var response = await mysql.execute(
             "SELECT * FROM usuario WHERE email = ?;",
             [req.body.email]
         );
         if (response.length > 0) {
             return res.status(401).send({
                 mensagem: "Email ja cadastrado",
+                code: 001
             });
         }
 
@@ -32,6 +25,7 @@ exports.postUsuario = async (req, res, next) => {
         if (response.length > 0) {
             return res.status(401).send({
                 mensagem: "Nome de usuário ja cadastrado",
+                code: 100
             });
         } else {
             const hash = await bcrypt.hashSync(req.body.senha, 10);

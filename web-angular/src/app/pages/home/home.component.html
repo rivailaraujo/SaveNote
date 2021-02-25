@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
-    <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>Home Teste</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet">
-    <link href="css/home.css" rel="stylesheet">
-</head>
-
+<html>
 <body>
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
@@ -216,7 +204,7 @@
         <nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
             <!-- Brand -->
             <a class="navbar-brand" href="#">
-                <img src="/icons/savenote.png" alt="Logo" style="width:40px;">
+                <img src="assets/savenote.png" alt="Logo" style="width:40px; margin-right: 10px;">
                 <a class="navbar-brand" href="#">Save Note</a>
             </a>
 
@@ -241,10 +229,10 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-user-plus"></i> Cadastre-se</a>
+                        <a class="nav-link" routerLink="auth/cadastro"><i class="fas fa-user-plus"></i> Cadastre-se</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-sign-in-alt"></i> Entrar</a>
+                        <a class="nav-link" routerLink="auth/login"><i class="fas fa-sign-in-alt"></i> Entrar</a>
                     </li>
 
 
@@ -895,12 +883,8 @@
         </div>
     </div>
     <!-- <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/js/home.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
+    
 
-    </script>
 </body>
 
 </html>
