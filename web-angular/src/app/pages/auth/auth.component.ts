@@ -172,8 +172,8 @@ export class AuthComponent implements OnInit {
             '<option value="' + cidade.nome + '">' + cidade.nome + '</option>';
         });
         console.log($('#estado').val());
-        this.cidades = '<option value="">' + "Selecione sua cidade" + '</option>'
-        this.cidades += responsecidade;
+        //this.cidades = '<option value="">' + "Selecione sua cidade" + '</option>'
+        this.cidades = responsecidade;
         console.log(this.temcidades);
         if (this.temestados && $('#estado').val() != '') {
           console.log("entrou")
