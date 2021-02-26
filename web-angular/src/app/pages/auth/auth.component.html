@@ -1,6 +1,6 @@
 <html>
 
-<body id="bodyid">
+<body style = "margin-top: -75px;">
   <nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">
@@ -75,11 +75,11 @@
 
           <label class="label-input" for="">
             <i class="fas fa-map-marked-alt icon-modify"></i>
+            <div *ngIf = "estados == false"  class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
             <select formControlName="estado" id="estado" type="estado" placeholder="Estado" required>
-              <option value="">Selecione seu estado</option>
+              <option  value="">Selecione seu estado</option>
             </select>
           </label>
-
           <div
             *ngIf="cadastroForm.controls.estado.invalid && (cadastroForm.controls.estado.dirty || cadastroForm.controls.estado.touched)"
             class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
@@ -88,10 +88,13 @@
               Estado é obrigatório
             </div>
           </div>
-
+          
           <label class="label-input" for="">
+            
             <i class="fas fa-map-marker-alt icon-modify"></i>
-            <select formControlName="cidade" id="cidade" type="cidade" placeholder="Cidade" required></select>
+            <div *ngIf = "cidades == false"  class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            <select formControlName="cidade" id="cidade" type="cidade" placeholder="Cidade" required>
+            </select>
           </label>
 
           <div
