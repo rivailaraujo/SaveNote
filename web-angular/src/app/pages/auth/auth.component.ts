@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import * as $ from 'jquery';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -20,14 +21,21 @@ export class AuthComponent implements OnInit {
 
   LoginModal = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: 'top',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
-    },
+  });
+
+  loginForm = new FormGroup({
+    email: new FormControl(
+      null,
+      Validators.compose([Validators.required, Validators.email])
+    ),
+    senha: new FormControl(
+      null,
+      Validators.compose([Validators.required, Validators.minLength(4)])
+    ),
   });
 
   cadastroForm = new FormGroup({
@@ -47,7 +55,7 @@ export class AuthComponent implements OnInit {
     ),
   });
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private Auth: AuthService, private router: Router ) {}
 
   ngOnInit(): void {
     this.montaUF();
@@ -78,17 +86,39 @@ export class AuthComponent implements OnInit {
     //let estados: string[] = [ "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO"]
   }
 
-  clear() {
+  logado(){
+    return this.Auth.isLoggedIn();
+    //console.log(this.Auth.isLoggedIn())
+  }
 
+  clear() {
     this.cadastroForm.reset();
     this.cadastroForm.clearValidators();
-    $('#estado').val('').change()
+    $('#estado').val('').change();
     this.cidades = false;
     $('#cidade').html('');
     //this.cadastroForm.get('estado').value('Selecione seu estado')
   }
 
-  enviar() {
+  enviarlogin() {
+    if (this.loginForm.valid) {
+      if (this.Auth.login(this.loginForm.value)) {
+        this.LoginModal.fire({
+          icon: 'success',
+          title: 'Login feito com sucesso',
+        });
+        this.router.navigate(['/']);
+      }
+    } else {
+      Object.keys(this.loginForm.controls).forEach((field) => {
+        // {1}
+        const control = this.loginForm.get(field); // {2}
+        control.markAsTouched({ onlySelf: true }); // {3}
+      });
+    }
+  }
+
+  enviarcadastro() {
     if (this.cadastroForm.valid) {
       $.ajax({
         type: 'POST',
@@ -176,7 +206,7 @@ export class AuthComponent implements OnInit {
         this.cidades = responsecidade;
         console.log(this.temcidades);
         if (this.temestados && $('#estado').val() != '') {
-          console.log("entrou")
+          console.log('entrou');
           this.temcidades = true;
         }
 

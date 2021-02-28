@@ -71,9 +71,11 @@ exports.loginUsuario = async (req, res, next) => {
                 "INSERT INTO sessao (id_usuario, token, data_expiracao, expirado, criado, atualizado) VALUES (?, ?, NULL, 0, NOW(), NULL);",
                 [response[0].id_usuario, token]
             );
+
             return res.status(200).send({
                 mensagem: "Login feito com sucesso",
-                token: token
+                token: token,
+                expiresIn: 1
             });
         }
     } catch (error) {
