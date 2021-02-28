@@ -27,6 +27,8 @@
           <a class="nav-link" href="#">Link</a>
         </li>
       </ul>
+      <ul class="navbar-nav ml-auto">
+    </ul>
     </div>
 
   </nav>
@@ -143,7 +145,7 @@
 
           
         </form>
-        <button type="submit" (click) = "enviar()" class="btn btn-second">cadastrar</button>
+        <button type="submit" (click) = "enviarcadastro()" class="btn btn-second">cadastrar</button>
       </div>
 
     </div>
@@ -170,19 +172,43 @@
           </ul>
         </div>
         <p class="description description-second">ou use seu email para registrar</p>
-        <form class="form">
+        <form [formGroup]="loginForm" class="form">
           <label class="label-input" for="">
             <i class="far fa-envelope icon-modify"></i>
-            <input type="email" placeholder="E-mail">
+            <input formControlName="email" type="email" placeholder="E-mail" required>
           </label>
+
+          <div
+            *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="loginForm.controls.email.errors?.required">
+                Email é obrigatório
+              </div>
+            <div *ngIf="loginForm.controls.email.errors?.email">
+                Email inválido
+            </div>
+          </div>
 
           <label class="label-input" for="">
             <i class="fas fa-lock icon-modify"></i>
-            <input type="password" placeholder="Senha">
+            <input formControlName="senha" type="password" placeholder="Senha" required>
           </label>
 
+          <div
+            *ngIf="loginForm.controls.senha.invalid && (loginForm.controls.senha.dirty || loginForm.controls.senha.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="loginForm.controls.senha.errors?.required">
+              Senha é obrigatório
+            </div>
+            <div *ngIf="loginForm.controls.senha.errors?.minlength">
+              Senha dever ter no mínimo 4 caracteres
+            </div>
+          </div>
+
           <a class="senha" href="#">Esqueceu sua senha?</a>
-          <button class="btn btn-second">entrar</button>
+          <button (click) = "enviarlogin()" class="btn btn-second">entrar</button>
         </form>
 
       </div>

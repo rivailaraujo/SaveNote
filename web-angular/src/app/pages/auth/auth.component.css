@@ -5,17 +5,15 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: "Open Sans", sans-serif;
-    background-color: #ecf0f1;
-}
+
 
 .container {
+    font-family: "Open Sans", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #ecf0f1;
+    background-color: #dcdcdc;
 }
 
 .content {

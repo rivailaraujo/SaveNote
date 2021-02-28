@@ -1,19 +1,18 @@
 
-<html>
-<body>
+
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
         </a>
         <nav id="sidebar" class="sidebar-wrapper">
             <div class="sidebar-content">
-                <div class="sidebar-brand">
+                <!-- <div class="sidebar-brand">
                     <a href="#">pro sidebar</a>
                     <div id="close-sidebar">
                         <i class="fas fa-times"></i>
                     </div>
-                </div>
-                <div class="sidebar-header">
+                </div> -->
+                <div *ngIf ="logado()" class="sidebar-header">
                     <div class="user-pic">
                         <img class="img-responsive img-rounded"
                             src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
@@ -228,11 +227,14 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                    <li *ngIf ="!logado()" class="nav-item">
                         <a class="nav-link" routerLink="auth/cadastro"><i class="fas fa-user-plus"></i> Cadastre-se</a>
                     </li>
-                    <li class="nav-item">
+                    <li *ngIf ="!logado()" class="nav-item">
                         <a class="nav-link" routerLink="auth/login"><i class="fas fa-sign-in-alt"></i> Entrar</a>
+                    </li>
+                    <li *ngIf ="logado()" class="nav-item">
+                        <a class="nav-link" style="cursor: pointer;" (click) = "sair()"><i class="fas fa-sign-out-alt"></i> Sair</a>
                     </li>
 
 
@@ -885,6 +887,3 @@
     <!-- <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
     
 
-</body>
-
-</html>
