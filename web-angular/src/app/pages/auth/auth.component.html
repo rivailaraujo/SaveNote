@@ -1,0 +1,220 @@
+<html>
+
+<body style = "margin-top: -75px;">
+  <nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">
+      <img src="assets/savenote.png" alt="Logo" style="width:40px; margin-right: 10px;">
+      <a class="navbar-brand" href="#">Save Note</a>
+    </a>
+
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+    </ul>
+    </div>
+
+  </nav>
+  <div class="container">
+    <div class="content primeiro-content">
+      <div class="primeira-coluna">
+        <h2 class="title title-primary">Bem vindo<br>de volta!</h2>
+        <p class="description description-primary">insira seus dados pessoais</p>
+        <button id="entrar" class="btn btn-primary" (click) = "clear()">entrar</button>
+      </div>
+      <div class="segunda-coluna">
+        <h2 class="title title-second">Crie sua conta</h2>
+        <div class="midias-sociais">
+          <ul class="list-midias-sociais">
+            <a class="link-midias-sociais" href="#">
+              <li class="item-midias-sociais">
+                <i class="fab fa-google-plus"></i>
+              </li>
+            </a>
+            <a class="link-midias-sociais" href="#">
+              <li class="item-midias-sociais">
+                <i class="fab fa-facebook"></i>
+              </li>
+            </a>
+          </ul>
+        </div>
+        <p class="description description-second">ou use seu email para registrar</p>
+        <form [formGroup]="cadastroForm" class="form">
+          <label class="label-input" for="">
+            <i class="far fa-user icon-modify"></i>
+            <input type="text" formControlName="nome" placeholder="Nome de Usuário" required>
+
+          </label>
+
+          <div
+            *ngIf="cadastroForm.controls.nome.invalid && (cadastroForm.controls.nome.dirty || cadastroForm.controls.nome.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="cadastroForm.controls.nome.errors?.required">
+              Nome é obrigatório
+            </div>
+            <div *ngIf="cadastroForm.controls.nome.errors?.minlength">
+              Nome dever ter no mínimo 4 caracteres
+            </div>
+          </div>
+
+          <label class="label-input" for="">
+            <i class="fas fa-map-marked-alt icon-modify"></i>
+            <div *ngIf = "estados == false"  class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            <select formControlName="estado" id="estado" type="estado" placeholder="Estado" required>
+              <option  value="">Selecione seu estado</option>
+            </select>
+          </label>
+          <div
+            *ngIf="cadastroForm.controls.estado.invalid && (cadastroForm.controls.estado.dirty || cadastroForm.controls.estado.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="cadastroForm.controls.estado.errors?.required">
+              Estado é obrigatório
+            </div>
+          </div>
+          
+          <label class="label-input" for="">
+            
+            <i class="fas fa-map-marker-alt icon-modify"></i>
+            <div *ngIf = "cidades == false"  class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            <select formControlName="cidade" id="cidade" type="cidade" placeholder="Cidade" required>
+            </select>
+          </label>
+
+          <div
+            *ngIf="cadastroForm.controls.cidade.invalid && (cadastroForm.controls.cidade.dirty || cadastroForm.controls.cidade.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="cadastroForm.controls.cidade.errors?.required">
+              Cidade é obrigatória
+            </div>
+          </div>
+
+
+          <label class="label-input" for="">
+            <i class="far fa-envelope icon-modify"></i>
+            <input formControlName="email" type="email" placeholder="E-mail" required>
+          </label>
+
+          <div
+            *ngIf="cadastroForm.controls.email.invalid && (cadastroForm.controls.email.dirty || cadastroForm.controls.email.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="cadastroForm.controls.email.errors?.required">
+                Email é obrigatório
+              </div>
+            <div *ngIf="cadastroForm.controls.email.errors?.email">
+                Email inválido
+            </div>
+          </div>
+
+          <label class="label-input" for="">
+            <i class="fas fa-lock icon-modify"></i>
+            <input formControlName="senha" type="password" placeholder="Senha" required>
+          </label>
+
+          <div
+            *ngIf="cadastroForm.controls.senha.invalid && (cadastroForm.controls.senha.dirty || cadastroForm.controls.senha.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="cadastroForm.controls.senha.errors?.required">
+              Senha é obrigatório
+            </div>
+            <div *ngIf="cadastroForm.controls.senha.errors?.minlength">
+              Senha dever ter no mínimo 4 caracteres
+            </div>
+          </div>
+
+          
+        </form>
+        <button type="submit" (click) = "enviarcadastro()" class="btn btn-second">cadastrar</button>
+      </div>
+
+    </div>
+    <div class="content segundo-content">
+      <div class="primeira-coluna">
+        <h2 class="title title-primary">Seja bem vindo<br> ao SaveNote</h2>
+        <p class="description description-primary">insira seus dados pessoais</p>
+        <button id="cadastrar" class="btn btn-primary" (click) = "clear()">cadastrar</button>
+      </div>
+      <div class="segunda-coluna">
+        <h2 class="title title-second">Faça seu login</h2>
+        <div class="midias-sociais">
+          <ul class="list-midias-sociais">
+            <a class="link-midias-sociais" href="#">
+              <li class="item-midias-sociais">
+                <i class="fab fa-google-plus"></i>
+              </li>
+            </a>
+            <a class="link-midias-sociais" href="#">
+              <li class="item-midias-sociais">
+                <i class="fab fa-facebook"></i>
+              </li>
+            </a>
+          </ul>
+        </div>
+        <p class="description description-second">ou use seu email para registrar</p>
+        <form [formGroup]="loginForm" class="form">
+          <label class="label-input" for="">
+            <i class="far fa-envelope icon-modify"></i>
+            <input formControlName="email" type="email" placeholder="E-mail" required>
+          </label>
+
+          <div
+            *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="loginForm.controls.email.errors?.required">
+                Email é obrigatório
+              </div>
+            <div *ngIf="loginForm.controls.email.errors?.email">
+                Email inválido
+            </div>
+          </div>
+
+          <label class="label-input" for="">
+            <i class="fas fa-lock icon-modify"></i>
+            <input formControlName="senha" type="password" placeholder="Senha" required>
+          </label>
+
+          <div
+            *ngIf="loginForm.controls.senha.invalid && (loginForm.controls.senha.dirty || loginForm.controls.senha.touched)"
+            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+
+            <div *ngIf="loginForm.controls.senha.errors?.required">
+              Senha é obrigatório
+            </div>
+            <div *ngIf="loginForm.controls.senha.errors?.minlength">
+              Senha dever ter no mínimo 4 caracteres
+            </div>
+          </div>
+
+          <a class="senha" href="#">Esqueceu sua senha?</a>
+          <button (click) = "enviarlogin()" class="btn btn-second">entrar</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
