@@ -102,12 +102,18 @@ export class AuthComponent implements OnInit {
 
   enviarlogin() {
     if (this.loginForm.valid) {
-      if (this.Auth.login(this.loginForm.value)) {
+      if (this.Auth.login(this.loginForm.value) == true) {
         this.LoginModal.fire({
           icon: 'success',
           title: 'Login feito com sucesso',
         });
         this.router.navigate(['/']);
+      }
+      else {
+        this.LoginModal.fire({
+          icon: 'error',
+          title: 'Credenciais inválidas',
+        });
       }
     } else {
       Object.keys(this.loginForm.controls).forEach((field) => {

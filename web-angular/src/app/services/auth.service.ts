@@ -9,6 +9,7 @@ import * as $ from 'jquery';
 export class AuthService {
   constructor() {}
   login(data) {
+    var response = false;
     return  $.ajax({
       type: 'POST',
         url: environment.api_url + '/usuario/login',
@@ -19,13 +20,12 @@ export class AuthService {
       .done((data) => {
         //console.log(data);
         this.setSession(data);
-
+        response = true;
       })
       .fail((error) => {
-
+        response = false
       });
-
-    
+      return response;
   }
 
   private setSession(authResult) {
