@@ -4,11 +4,13 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const rotaUsuario = require('./routes/usuario')
-
+const rotaDocumento = require('./routes/documento')
 
 app.use(morgan('dev'));
+//app.use(express.bodyParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -22,6 +24,7 @@ app.use((req, res, next) => {
 
 
 app.use('/usuario', rotaUsuario);
+app.use('/documento', rotaDocumento);
 
 
 app.use((req, res, next) => {
