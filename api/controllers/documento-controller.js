@@ -2,30 +2,57 @@ const mysql = require("../mysql");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const fs = require('fs');
+//INSERT INTO `notebook` (`nome_notebook`, `publico`, `avaliacao_media`, `id_usuario`, `criado`) VALUES ('', '', '0', '', '');
+
+exports.postNotebook = async (req, res, next) => {
+    try {
+        //SELECT * FROM `notebook` WHERE nome_notebook = 'Segundo Notebook'
+        var response = await mysql.execute("SELECT * FROM `notebook` WHERE nome_notebook = ?",
+            [req.body.nome_notebook]);
+
+        if (response.length > 0) {
+            res.status(409).send({
+                mensagem: "Notebook com nome ja existente!"
+            });
+        } else {
+            response = await mysql.execute("INSERT INTO `notebook` (`nome_notebook`, `publico`, `avaliacao_media`, `id_usuario`, `criado`) VALUES (?, ?, '0', ?, NOW());",
+                [req.body.nome_notebook, req.body.publico, req.usuario.id_usuario]);
+            res.status(200).send({
+                mensagem: "Notebook criado com sucesso!"
+            });
+        }
+
+    } catch (error) {
+
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
 
 
 exports.postDocumento = async (req, res, next) => {
     try {
-        
+
         data = req.body;
 
         console.log(data)
         //var fs = require('fs');
         //console.log(data)
         fs.writeFile("./txts/teste2.txt", data.txt, function (erro) {
-    
+
             if (erro) {
                 throw erro;
             }
-    
+
             console.log("Arquivo salvo");
             return res.status(200).send({
                 mensagem: 'salvo',
             });
         });
-    
 
-        
+
+
     } catch (error) {
         return res.status(500).send({
             error: error,
@@ -35,10 +62,10 @@ exports.postDocumento = async (req, res, next) => {
 
 exports.getDocumento = async (req, res, next) => {
     try {
-        
+
         fs.readFile('./txts/teste2.txt', 'utf8', function (err, data) {
             if (err) {
-    
+
                 throw err;
             }
             return res.status(200).send(
@@ -46,9 +73,9 @@ exports.getDocumento = async (req, res, next) => {
             );
 
         });
-    
 
-        
+
+
     } catch (error) {
         return res.status(500).send({
             error: error,

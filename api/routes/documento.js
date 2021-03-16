@@ -7,6 +7,7 @@ const login = require("../middleware/login");
 
 //router.post("/", login.obrigatorio, controllerDocumento.postDocumento);
 router.post("/", controllerDocumento.postDocumento);
+router.post("/notebook", login.obrigatorio , controllerDocumento.postNotebook);
 router.get("/", controllerDocumento.getDocumento);
 
 
