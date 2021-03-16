@@ -1,6 +1,6 @@
 # SaveNote
 
-Programa para criação de notebooks e notas em Markdown e Aúdio.
+Programa para criação de notas inteligentes em Markdown e Aúdio.
 
 ## Instalação
 
