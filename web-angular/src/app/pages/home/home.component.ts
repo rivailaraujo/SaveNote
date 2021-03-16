@@ -5,6 +5,8 @@ import * as $ from 'jquery';
 import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -39,7 +41,23 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.Auth.isLoggedIn())
+    //console.log(this.Auth.isLoggedIn())
+    $.ajax({
+        type: 'GET',
+        url: environment.api_url + '/usuario/',
+        dataType: 'json',
+        async: true,
+        headers: {
+          "Authorization": "Bearer " + this.Auth.getToken()
+        }
+    })
+      .done((data) => {
+        //console.log(data);
+        this.Auth.setUsuario(data[0]);
+      })
+      .fail((error) => {
+        console.log(error);
+      });
   }
 
 

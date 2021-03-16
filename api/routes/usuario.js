@@ -5,7 +5,7 @@ const mysql = require("../mysql").pool;
 const controllerUsuario = require('../controllers/usuario-controller')
 const login = require("../middleware/login");
 
-router.get("/", login.obrigatorio, controllerUsuario.getUsuarios);
+router.get("/", login.obrigatorio, controllerUsuario.getUsuario);
 
 router.post("/", controllerUsuario.postUsuario);
 

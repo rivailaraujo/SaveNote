@@ -7,6 +7,11 @@ import * as $ from 'jquery';
   providedIn: 'root',
 })
 export class AuthService {
+  private usuario = {
+    nome: null,
+    imagem: null,
+    email: null,
+  }
   constructor() {}
   login(data) {
     var response = false;
@@ -39,6 +44,12 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expires_at');
+    let deletar_usuario = {
+      nome: null,
+      imagem: null,
+      email: null,
+    }
+    this.setUsuario(deletar_usuario)
   }
 
   public isLoggedIn() {
@@ -57,5 +68,15 @@ export class AuthService {
     const expiration = localStorage.getItem('expires_at');
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);
+  }
+
+  setUsuario(data) {
+    this.usuario.nome = data.nome,
+    this.usuario.imagem = data.imagem,
+    this.usuario.email = data.email
+  }
+
+  getUsuario() {
+    return this.usuario;
   }
 }
