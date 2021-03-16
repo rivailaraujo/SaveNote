@@ -27,6 +27,13 @@ A pasta web é apenas para testes.
 ### Clone
 git clone https://gitlab.com/Rivail/deathnote.git
 
+### Instalando Banco
+Para facilitar a instalação utilize o arquivo de Script "scriptdb_1_2.sql" em [/db](https://gitlab.com/Rivail/deathnote/-/tree/master/db). 
+
+Copie o script e cole na aba SQL do seu phpmyadmin. Certifique-se de estar rodando o MySQL Database e o Apache Web Server em seu painel XAMPP.
+
+![Instalando Banco](https://media.giphy.com/media/B2SN9Klx0JelbTejqU/giphy.gif)
+
 ### Instalando módulos
 Não esqueça de instalar os node_modules rodando o comando:
 
