@@ -77,6 +77,10 @@ exports.loginUsuario = async (req, res, next) => {
                 token: token,
                 expiresIn: 1
             });
+        }else{
+            return res.status(401).send({
+                mensagem: "Falha na autenticação",
+            });
         }
     } catch (error) {
         return res.status(401).send({

@@ -23,8 +23,8 @@ export class AuthComponent implements OnInit {
     toast: true,
     position: 'top',
     showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
+    timer: 1500,
+    timerProgressBar: false,
   });
 
   loginForm = new FormGroup({
@@ -102,27 +102,22 @@ export class AuthComponent implements OnInit {
 
   enviarlogin() {
     if (this.loginForm.valid) {
-      if (this.Auth.login(this.loginForm.value) == true) {
-        this.LoginModal.fire({
-          icon: 'success',
-          title: 'Login feito com sucesso',
+     this.Auth.login(this.loginForm.value).then((data) => {
+      this.LoginModal.fire({
+        icon: 'success',
+        title: 'Login feito com sucesso',
         });
         this.router.navigate(['/']);
-      }
-      else {
+        
+      })
+      .catch((error) => {
         this.LoginModal.fire({
           icon: 'error',
           title: 'Credenciais inválidas',
-        });
-      }
-    } else {
-      Object.keys(this.loginForm.controls).forEach((field) => {
-        // {1}
-        const control = this.loginForm.get(field); // {2}
-        control.markAsTouched({ onlySelf: true }); // {3}
-      });
-    }
+          });
+      })
   }
+}
 
   enviarcadastro() {
     if (this.cadastroForm.valid) {
