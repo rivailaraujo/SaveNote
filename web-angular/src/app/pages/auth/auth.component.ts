@@ -64,7 +64,7 @@ export class AuthComponent implements OnInit {
     // 	icon: 'success',
     // 	title: 'Login feito com sucesso'
     //   })
-    console.log(environment.api_url);
+    //console.log(environment.api_url);
 
     if (this.route.snapshot.params.id == 'cadastro') {
       body.className = 'cadastrar-js';
@@ -202,10 +202,10 @@ export class AuthComponent implements OnInit {
           responsecidade +=
             '<option value="' + cidade.nome + '">' + cidade.nome + '</option>';
         });
-        console.log($('#estado').val());
+        //console.log($('#estado').val());
         //this.cidades = '<option value="">' + "Selecione sua cidade" + '</option>'
         this.cidades = responsecidade;
-        console.log(this.temcidades);
+        //console.log(this.temcidades);
         if (this.temestados && $('#estado').val() != '') {
           console.log('entrou');
           this.temcidades = true;

@@ -67,9 +67,9 @@ export class AuthService {
   
 
   private setSession(authResult) {
-    console.log("SESSAO")
+    //console.log("SESSAO")
     const expiresAt = moment().add(authResult.expiresIn, 'hour');
-    console.log('data_expiracao', expiresAt)
+    //console.log('data_expiracao', expiresAt)
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }

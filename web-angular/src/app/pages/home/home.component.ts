@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
           timer: 1500,
           width: '300px',
         });
-        console.log(data);
+        //console.log(data);
         this.Auth.logout();
         //this.router.navigateByUrl('/auth/login');
         this.router.navigate(['/auth/login']);
