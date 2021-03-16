@@ -77,6 +77,10 @@ exports.loginUsuario = async (req, res, next) => {
                 token: token,
                 expiresIn: 1
             });
+        }else{
+            return res.status(401).send({
+                mensagem: "Falha na autenticação",
+            });
         }
     } catch (error) {
         return res.status(401).send({
@@ -105,6 +109,19 @@ exports.getUsuarios = async (req, res, next) => {
     try {
         const response = await mysql.execute("SELECT * FROM usuario;");
         res.status(201).send(response);
+    } catch (error) {
+
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.getUsuario = async (req, res, next) => {
+    try {
+        const response = await mysql.execute("SELECT nome,imagem,email FROM `usuario` WHERE id_usuario = ?", 
+        [req.usuario.id_usuario]);
+        res.status(200).send(response);
     } catch (error) {
 
         res.status(500).send({

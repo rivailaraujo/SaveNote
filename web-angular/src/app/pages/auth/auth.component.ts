@@ -23,8 +23,8 @@ export class AuthComponent implements OnInit {
     toast: true,
     position: 'top',
     showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
+    timer: 1500,
+    timerProgressBar: false,
   });
 
   loginForm = new FormGroup({
@@ -64,7 +64,7 @@ export class AuthComponent implements OnInit {
     // 	icon: 'success',
     // 	title: 'Login feito com sucesso'
     //   })
-    console.log(environment.api_url);
+    //console.log(environment.api_url);
 
     if (this.route.snapshot.params.id == 'cadastro') {
       body.className = 'cadastrar-js';
@@ -102,21 +102,22 @@ export class AuthComponent implements OnInit {
 
   enviarlogin() {
     if (this.loginForm.valid) {
-      if (this.Auth.login(this.loginForm.value)) {
-        this.LoginModal.fire({
-          icon: 'success',
-          title: 'Login feito com sucesso',
+     this.Auth.login(this.loginForm.value).then((data) => {
+      this.LoginModal.fire({
+        icon: 'success',
+        title: 'Login feito com sucesso',
         });
         this.router.navigate(['/']);
-      }
-    } else {
-      Object.keys(this.loginForm.controls).forEach((field) => {
-        // {1}
-        const control = this.loginForm.get(field); // {2}
-        control.markAsTouched({ onlySelf: true }); // {3}
-      });
-    }
+        
+      })
+      .catch((error) => {
+        this.LoginModal.fire({
+          icon: 'error',
+          title: 'Credenciais inválidas',
+          });
+      })
   }
+}
 
   enviarcadastro() {
     if (this.cadastroForm.valid) {
@@ -201,10 +202,10 @@ export class AuthComponent implements OnInit {
           responsecidade +=
             '<option value="' + cidade.nome + '">' + cidade.nome + '</option>';
         });
-        console.log($('#estado').val());
+        //console.log($('#estado').val());
         //this.cidades = '<option value="">' + "Selecione sua cidade" + '</option>'
         this.cidades = responsecidade;
-        console.log(this.temcidades);
+        //console.log(this.temcidades);
         if (this.temestados && $('#estado').val() != '') {
           console.log('entrou');
           this.temcidades = true;

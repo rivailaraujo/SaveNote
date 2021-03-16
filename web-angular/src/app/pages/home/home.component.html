@@ -19,10 +19,10 @@
                             alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Jhon
-                            <strong>Smith</strong>
+                        <span class="user-name">
+                            <strong>{{this.Auth.getUsuario().nome}}</strong>
                         </span>
-                        <span class="user-role">Administrator</span>
+                        <span class="user-role">{{this.Auth.getUsuario().email}}</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
