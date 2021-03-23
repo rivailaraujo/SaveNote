@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
         this.Auth.setUsuario(data[0]);
       })
       .fail((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }
 

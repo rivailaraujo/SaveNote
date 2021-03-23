@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/">
+        <img src="assets/savenote.png" alt="Logo" style="width:40px; margin-right: 10px;">
+        <a class="navbar-brand" href="#">Save Note</a>
+    </a>
+
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/">Comunidade</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li *ngIf ="!logado() && !verificaAuth()" class="nav-item">
+                <a class="nav-link" routerLink="auth/cadastro"><i class="fas fa-user-plus"></i> Cadastre-se</a>
+            </li>
+            <li *ngIf ="!logado() && !verificaAuth()" class="nav-item">
+                <a class="nav-link" routerLink="auth/login"><i class="fas fa-sign-in-alt"></i> Entrar</a>
+            </li>
+            <li *ngIf ="logado() && !verificaAuth()" class="nav-item">
+                <a class="nav-link" style="cursor: pointer;" (click) = "sair()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+            </li>
+
+
+        </ul>
+    </div>
+
+</nav>
