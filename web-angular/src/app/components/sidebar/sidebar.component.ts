@@ -8,7 +8,7 @@ import * as $ from 'jquery';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
+  status: boolean = false;
   constructor(private Auth: AuthService) { 
     jQuery(function ($) {
 
@@ -42,8 +42,11 @@ export class SidebarComponent implements OnInit {
     // });
     
     });
+    
   }
-
+clickEvent(){
+    this.status = !this.status;       
+}
   ngOnInit(): void {
     $.ajax({
       type: 'GET',

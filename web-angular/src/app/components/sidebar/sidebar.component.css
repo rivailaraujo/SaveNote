@@ -455,6 +455,8 @@
       color: #16c7ff;
       text-shadow:0px 0px 10px rgba(22, 199, 255, 0.5);
   }
+
+
   
   .chiller-theme .sidebar-wrapper .sidebar-menu ul li a i,
   .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown div,
@@ -483,6 +485,23 @@
 
   .item:hover .delbut{
     display: block;
+  }
+
+  .item.active{
+  
+    background-color: #1c66e5b0 !important;
+    
+  }
+  .item.active a{
+    color: #ffffff !important;
+  }
+  .item.active .delbut{
+    display: block;
+   
+  }
+  .item.active .editbut{
+    display: block;
+    
   }
 
   .delbut{

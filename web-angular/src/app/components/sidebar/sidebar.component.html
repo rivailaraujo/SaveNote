@@ -55,8 +55,8 @@
               </a>
             <div class="sidebar-submenu active" style="display: block;">
               <ul>
-                <li class="item">
-                  <a href="#">Notebook 1
+                <li class="item active" (click)="clickEvent()" [ngClass]="status ? 'active' : ''">
+                  <a  href="#">Notebook 1
                     <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
                     <span class="badge badge-pill badge-primary editbut" style="margin-top: 1px; font-size: 85%;">✎</span>
                     
