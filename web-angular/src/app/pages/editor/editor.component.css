@@ -79,7 +79,7 @@
   font-size: 2em;
   font-weight: bold;
   border-radius: 50%;
-  background-color: #006eff;
+  background-color: #578ae2;
   color: white;
   text-align: center;
   cursor: pointer;
@@ -91,7 +91,7 @@
 }
 
 .roundedFixedBtn:active {
-  background-color: #006eff;
+  background-color: #578ae2;
   background-size: 100%;
   transition: background 0s;
 }
