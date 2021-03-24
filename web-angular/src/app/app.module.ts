@@ -8,6 +8,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { EditorComponent } from './pages/editor/editor.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     AuthComponent,
     HeaderComponent,
     SidebarComponent,
+    EditorComponent,
   ],
   imports: [
     BrowserModule,
