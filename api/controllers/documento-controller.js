@@ -88,7 +88,7 @@ exports.getNotebooksUsuario = async (req, res, next) => {
         //res.status(200).send(req.usuario);
 
         var response = await mysql.execute("SELECT id_notebook, nome_notebook, publico, avaliacao_media FROM `notebook` WHERE id_usuario = ?",
-            []);
+            [req.usuario.id_usuario]);
 
         if (response.length > 0) {
             res.status(200).send(response);
@@ -110,7 +110,7 @@ exports.getNotebooks = async (req, res, next) => {
         //res.status(200).send(req.usuario);
 
         var response = await mysql.execute("SELECT id_notebook, nome_notebook, avaliacao_media, nome AS 'autor' FROM notebook, usuario WHERE publico = 1",
-            [req.usuario.id_usuario]);
+            []);
 
         if (response.length > 0) {
             res.status(200).send(response);

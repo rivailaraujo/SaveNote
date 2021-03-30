@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class SidebarComponent implements OnInit {
   status: boolean = false;
   meusnotebooks: any;
-
+  
   
   
   constructor(private Auth: AuthService, activatedRoute: ActivatedRoute) {
@@ -79,6 +79,7 @@ clickEvent(){
     this.status = !this.status;       
 }
   ngOnInit(): void {
+    
     $.ajax({
       type: 'GET',
       url: environment.api_url + '/usuario/',
