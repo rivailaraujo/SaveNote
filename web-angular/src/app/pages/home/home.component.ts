@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
  
 
 export class HomeComponent implements OnInit {
+  notebooks: any;
 
   LogOutModal = Swal.mixin({
     toast: true,
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit {
     },
   });
 
-  constructor(private route: ActivatedRoute, private Auth: AuthService, private router: Router ) { 
+  constructor(private route: ActivatedRoute, private Auth: AuthService, private router: Router ) {   
     router.events
       .subscribe((event: NavigationStart) => {
         if (event.navigationTrigger === 'popstate') {
@@ -38,6 +39,8 @@ export class HomeComponent implements OnInit {
         }
       })
     //window.location.reload();
+
+    this.getNotebooks();
   }
 
   ngOnInit(): void {
@@ -60,6 +63,25 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  getNotebooks() {
+    $.ajax({
+      type: 'GET',
+      url: environment.api_url + '/documento/notebooks',
+      dataType: 'json',
+      async: true,
+      headers: {
+        "Authorization": "Bearer " + this.Auth.getToken()
+      }
+  })
+    .done((data) => {
+      this.notebooks = data;
+      console.log(this.notebooks);
+      
+    })
+    .fail((error) => {
+      //console.log(error);
+    });
+  }
 
   logado(){
     return this.Auth.isLoggedIn();

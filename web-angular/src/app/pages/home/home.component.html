@@ -77,7 +77,7 @@
                                             <div class="table-responsive">
                                                 <table class="table widget-26">
                                                     <tbody>
-                                                        <tr>
+                                                        <tr *ngFor="let notebook of notebooks">
                                                             <td>
                                                                 <div class="widget-26-job-emp-img">
                                                                     <img src="https://bootdey.com/img/Content/avatar/avatar5.png"
@@ -86,10 +86,9 @@
                                                             </td>
                                                             <td>
                                                                 <div class="widget-26-job-title">
-                                                                    <a href="#">Senior Software Engineer / Developer</a>
+                                                                    <a href="#">{{notebook.nome_notebook}}</a>
                                                                     <p class="m-0"><a href="#"
-                                                                            class="employer-name">Axiom
-                                                                            Corp.</a> <span class="text-muted time">1
+                                                                            class="employer-name">{{notebook.autor}}</a> <span class="text-muted time">&nbsp;1
                                                                             days
                                                                             ago</span></p>
                                                                 </div>
@@ -127,7 +126,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <td>
                                                                 <div class="widget-26-job-emp-img">
                                                                     <img src="https://bootdey.com/img/Content/avatar/avatar2.png"
@@ -584,7 +583,7 @@
                                                                     </a>
                                                                 </div>
                                                             </td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </tbody>
                                                 </table>
                                             </div>
