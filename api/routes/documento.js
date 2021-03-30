@@ -10,5 +10,5 @@ router.post("/", controllerDocumento.postDocumento);
 router.post("/notebook", login.obrigatorio , controllerDocumento.postNotebook);
 router.get("/", controllerDocumento.getDocumento);
 router.put("/notebook", login.obrigatorio , controllerDocumento.editarNotebook);
-
+router.delete("/notebook", login.obrigatorio , controllerDocumento.excluirNotebook);
 module.exports = router;

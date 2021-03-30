@@ -149,3 +149,29 @@ exports.editarNotebook = async (req, res, next) => {
         });
     }
 };
+
+exports.excluirNotebook = async (req, res, next) => {
+    try {
+        //UPDATE `notebook` SET `publico` = '1' WHERE `notebook`.`id_notebook` = 11
+        var response = await mysql.execute("SELECT * FROM `notebook` WHERE id_notebook = ?",
+            [req.body.id_notebook]);
+
+        if (response.length > 0) {
+            response = await mysql.execute("DELETE FROM `notebook` WHERE `notebook`.`id_notebook` = ?",[req.body.id_notebook]);
+            res.status(200).send({
+                mensagem: "Notebook excluido com sucesso!"
+            });
+
+        } else {
+            res.status(400).send({
+                mensagem: "Notebook não existe!"
+            });
+        }
+
+    } catch (error) {
+
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
