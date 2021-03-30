@@ -9,6 +9,7 @@ const login = require("../middleware/login");
 router.post("/", controllerDocumento.postDocumento);
 router.post("/notebook", login.obrigatorio , controllerDocumento.postNotebook);
 router.get("/", controllerDocumento.getDocumento);
+router.get("/notebooks",login.opcional, controllerDocumento.getNotebooks);
 
 
 module.exports = router;
