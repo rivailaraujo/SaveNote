@@ -106,6 +106,7 @@ clickEvent(){
   criarNotebook(){
 
     Swal.fire({
+      title: 'Criar Notebook',
       html:
       '<input placeholder = "Defina um nome para o Notebook" id="swal-input1" class="swal2-input">' +
       '<div><input type="checkbox" id="flag" name="flag"><label for="flag">&nbsp Público</label></div>',
