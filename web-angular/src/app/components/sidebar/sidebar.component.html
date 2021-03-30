@@ -1,5 +1,5 @@
 <div class="page-wrapper chiller-theme toggled">
-  <a id="show-sidebar" class="btn btn-sm btn-dark" >
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
     <i class="fas fa-bars"></i>
   </a>
   <nav id="sidebar" class="sidebar-wrapper">
@@ -46,48 +46,42 @@
           <li class="header-menu">
             <span>General</span>
           </li>
-          <li  *ngIf="logado()" class="sidebar-dropdown active">
-              <a >
-                <i class="fa fa-book"></i>
-                <span style="margin-top: 5px !important;">Notebooks</span>
-                <span id = "criar-notebook-buttom" (click)="criarNotebook()" class="badge badge-pill badge-primary criar-notebook" style="margin-top: 5px; margin-right: 8px; font-size: 85%; cursor: pointer;">+ Criar</span>
-              </a>
-              
+          <li *ngIf="logado()" class="sidebar-dropdown active">
+            <a>
+              <i class="fa fa-book"></i>
+              <span style="margin-top: 5px !important;">Notebooks</span>
+              <span id="criar-notebook-buttom" (click)="criarNotebook()"
+                class="badge badge-pill badge-primary criar-notebook"
+                style="margin-top: 5px; margin-right: 8px; font-size: 85%; cursor: pointer;">+ Criar</span>
+            </a>
+
             <div class="sidebar-submenu active" style="display: block;">
               <ul>
-                <li class="item active" (click)="clickEvent()" [ngClass]="status ? 'active' : ''">
-                  <a  >Notebook 1
-                    <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
-                    <span class="badge badge-pill badge-primary editbut" style="margin-top: 1px; font-size: 85%;">✎</span>
-                    
+                <li *ngIf="this.meusnotebooks.mensagem" class="item">
+                  <a>Não há Notebooks
+
                   </a>
                 </li>
-                <li class="item">
-                  <a >Notebook 2
+                <li *ngFor="let notebook of this.meusnotebooks" class="item">
+                  <a> {{notebook.nome_notebook}}
                     <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
-                    <span class="badge badge-pill badge-primary editbut" style="margin-top: 1px; font-size: 85%;">✎</span>
-                    
-                  </a>
-                  
-                </li>
-                <li class="item">
-                  <a >Notebook 3
-                    <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
-                    <span class="badge badge-pill badge-primary editbut" style="margin-top: 1px; font-size: 85%;">✎</span>
-                    
+                    <span class="badge badge-pill badge-primary editbut"
+                      style="margin-top: 1px; font-size: 85%;">✎</span>
+
                   </a>
                 </li>
+                
               </ul>
             </div>
           </li>
 
 
 
-          
+
 
 
           <li class="sidebar-dropdown">
-            <a >
+            <a>
               <i class="fa fa-tachometer-alt"></i>
               <span>Dashboard</span>
               <span class="badge badge-pill badge-warning">New</span>
@@ -95,21 +89,21 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a >Dashboard 1
+                  <a>Dashboard 1
                     <span class="badge badge-pill badge-success">Pro</span>
                   </a>
                 </li>
                 <li>
-                  <a >Dashboard 2</a>
+                  <a>Dashboard 2</a>
                 </li>
                 <li>
-                  <a >Dashboard 3</a>
+                  <a>Dashboard 3</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="sidebar-dropdown">
-            <a >
+            <a>
               <i class="fa fa-shopping-cart"></i>
               <span>E-commerce</span>
               <span class="badge badge-pill badge-danger">3</span>
@@ -117,78 +111,78 @@
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a >Products
+                  <a>Products
 
                   </a>
                 </li>
                 <li>
-                  <a >Orders</a>
+                  <a>Orders</a>
                 </li>
                 <li>
-                  <a >Credit cart</a>
+                  <a>Credit cart</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="sidebar-dropdown">
-            <a >
+            <a>
               <i class="far fa-gem"></i>
               <span>Components</span>
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a >General</a>
+                  <a>General</a>
                 </li>
                 <li>
-                  <a >Panels</a>
+                  <a>Panels</a>
                 </li>
                 <li>
-                  <a >Tables</a>
+                  <a>Tables</a>
                 </li>
                 <li>
-                  <a >Icons</a>
+                  <a>Icons</a>
                 </li>
                 <li>
-                  <a >Forms</a>
+                  <a>Forms</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="sidebar-dropdown">
-            <a >
+            <a>
               <i class="fa fa-chart-line"></i>
               <span>Charts</span>
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a >Pie chart</a>
+                  <a>Pie chart</a>
                 </li>
                 <li>
-                  <a >Line chart</a>
+                  <a>Line chart</a>
                 </li>
                 <li>
-                  <a >Bar chart</a>
+                  <a>Bar chart</a>
                 </li>
                 <li>
-                  <a >Histogram</a>
+                  <a>Histogram</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="sidebar-dropdown">
-            <a >
+            <a>
               <i class="fa fa-globe"></i>
               <span>Maps</span>
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a >Google maps</a>
+                  <a>Google maps</a>
                 </li>
                 <li>
-                  <a >Open street map</a>
+                  <a>Open street map</a>
                 </li>
               </ul>
             </div>
@@ -197,20 +191,20 @@
             <span>Extra</span>
           </li>
           <li>
-            <a >
+            <a>
               <i class="fa fa-book"></i>
               <span>Documentation</span>
               <span class="badge badge-pill badge-primary">Beta</span>
             </a>
           </li>
           <li>
-            <a >
+            <a>
               <i class="fa fa-calendar"></i>
               <span>Calendar</span>
             </a>
           </li>
           <li>
-            <a >
+            <a>
               <i class="fa fa-folder"></i>
               <span>Examples</span>
             </a>

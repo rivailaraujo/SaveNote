@@ -11,10 +11,12 @@ import Swal from 'sweetalert2';
 })
 export class SidebarComponent implements OnInit {
   status: boolean = false;
+  meusnotebooks: any;
 
   
   
   constructor(private Auth: AuthService, activatedRoute: ActivatedRoute) {
+    this.getMeusNotebooks();
     
     jQuery(function ($) {
 
@@ -52,6 +54,26 @@ export class SidebarComponent implements OnInit {
     
     });
     
+  }
+
+  getMeusNotebooks() {
+    $.ajax({
+      type: 'GET',
+      url: environment.api_url + '/usuario/notebooks',
+      dataType: 'json',
+      async: true,
+      headers: {
+        "Authorization": "Bearer " + this.Auth.getToken()
+      }
+  })
+    .done((data) => {
+      this.meusnotebooks = data;
+      console.log(this.meusnotebooks);
+      
+    })
+    .fail((error) => {
+      //console.log(error);
+    });
   }
 clickEvent(){
     this.status = !this.status;       
@@ -129,6 +151,7 @@ clickEvent(){
             'Notebook Criado com Sucesso!',
             'success'
           )
+          this.getMeusNotebooks();
         })
         .fail((error) => {
           Swal.fire({

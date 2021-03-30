@@ -82,3 +82,27 @@ exports.getDocumento = async (req, res, next) => {
         });
     }
 };
+
+exports.getNotebooksUsuario = async (req, res, next) => {
+    try {
+        //res.status(200).send(req.usuario);
+
+        var response = await mysql.execute("SELECT id_notebook, nome_notebook, publico, avaliacao_media FROM `notebook` WHERE id_usuario = ?",
+            [req.usuario.id_usuario]);
+
+        if (response.length > 0) {
+            res.status(200).send(response);
+        } else {
+            res.status(200).send({
+                mensagem: "Não há notebooks!"
+            });
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+
