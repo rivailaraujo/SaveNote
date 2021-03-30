@@ -127,4 +127,73 @@ exports.getNotebooks = async (req, res, next) => {
     }
 };
 
+exports.editarNotebook = async (req, res, next) => {
+    try {
+        //UPDATE `notebook` SET `publico` = '1' WHERE `notebook`.`id_notebook` = 11
+        var response = await mysql.execute("SELECT * FROM `notebook` WHERE id_notebook = ?",
+            [req.body.id_notebook]);
 
+        if (response.length > 0) {
+            if (response[0].nome_notebook == req.body.nome_notebook) {
+                response = await mysql.execute("UPDATE notebook SET nome_notebook = ?, publico = ? WHERE notebook.id_notebook = ?",
+                    [req.body.nome_notebook, req.body.publico, req.body.id_notebook])
+                res.status(200).send({
+                    mensagem: "Editado com sucesso!"
+                });
+            } else {
+                response = await mysql.execute("SELECT * FROM `notebook` WHERE nome_notebook = ?",
+                    [req.body.nome_notebook]);
+
+                if (response.length > 0) {
+                    res.status(409).send({
+                        mensagem: "Notebook com nome ja existente!"
+                    });
+                } else {
+                    response = await mysql.execute("UPDATE notebook SET nome_notebook = ?, publico = ? WHERE notebook.id_notebook = ?",
+                        [req.body.nome_notebook, req.body.publico, req.body.id_notebook])
+                    res.status(200).send({
+                        mensagem: "Editado com sucesso!"
+                    });
+                }
+            }
+
+
+        } else {
+            res.status(400).send({
+                mensagem: "Notebook não existe!"
+            });
+        }
+
+    } catch (error) {
+
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.excluirNotebook = async (req, res, next) => {
+    try {
+        //UPDATE `notebook` SET `publico` = '1' WHERE `notebook`.`id_notebook` = 11
+        var response = await mysql.execute("SELECT * FROM `notebook` WHERE id_notebook = ?",
+            [req.body.id_notebook]);
+
+        if (response.length > 0) {
+            response = await mysql.execute("DELETE FROM `notebook` WHERE `notebook`.`id_notebook` = ?",[req.body.id_notebook]);
+            res.status(200).send({
+                mensagem: "Notebook excluido com sucesso!"
+            });
+
+        } else {
+            res.status(400).send({
+                mensagem: "Notebook não existe!"
+            });
+        }
+
+    } catch (error) {
+
+        res.status(500).send({
+            error: error,
+        });
+    }
+};

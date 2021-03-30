@@ -106,6 +106,7 @@ clickEvent(){
   criarNotebook(){
 
     Swal.fire({
+      title: 'Criar Notebook',
       html:
       '<input placeholder = "Defina um nome para o Notebook" id="swal-input1" class="swal2-input">' +
       '<div><input type="checkbox" id="flag" name="flag"><label for="flag">&nbsp Público</label></div>',
@@ -169,6 +170,81 @@ clickEvent(){
       allowOutsideClick: () => !Swal.isLoading()
     })
   
+  }
+
+  editar(notebook){
+    let stringhtml;
+    if (notebook.publico == 1){
+      stringhtml = '<input id="swal-input1" class="swal2-input" value = "'+notebook.nome_notebook+'">' +
+      '<div><input type="checkbox" id="flag" name="flag" checked><label for="flag">&nbsp Público</label></div>'
+    }else{
+      stringhtml = '<input id="swal-input1" class="swal2-input" value = "'+notebook.nome_notebook+'">' +
+      '<div><input type="checkbox" id="flag" name="flag"><label for="flag">&nbsp Público</label></div>'
+    }
+    Swal.fire({
+      title: 'Editar Notebook',
+      html: stringhtml,
+      showCancelButton: true,
+      confirmButtonText: 'Salvar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        let dados = {
+          id_notebook: notebook.id_notebook,
+          nome_notebook: (<HTMLInputElement>document.getElementById("swal-input1")).value,
+          publico: 0,
+        }
+        let flag = (<HTMLInputElement>document.getElementById("flag")).checked;
+        if (flag == true){
+          dados.publico = 1;
+        }else{
+          dados.publico = 0;
+        }
+        if(dados.nome_notebook == ''){
+          //return false;
+          Swal.fire({
+            showConfirmButton: false,
+            icon: 'error',
+            title: 'Ops...',
+            text: 'Nome não pode ser vazio!',
+            timer: 2000
+          })
+
+        }else{
+          console.log(dados)
+        $.ajax({
+          type: 'PUT',
+          url: environment.api_url + '/documento/notebook',
+          dataType: 'json',
+          data: dados,
+          async: true,
+          headers: {
+            "Authorization": "Bearer " + this.Auth.getToken()
+          }
+        })
+        .done((data) => {
+          Swal.fire(
+            'Tudo Certo!',
+            'Alterações feitas com Sucesso!',
+            'success'
+          )
+          this.getMeusNotebooks();
+        })
+        .fail((error) => {
+          Swal.fire({
+            showConfirmButton: false,
+            icon: 'error',
+            title: 'Ops...',
+            text: 'Nome já existente',
+            timer: 2000
+          })
+        });
+        }
+        
+  
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    })
+    
   }
 
 }

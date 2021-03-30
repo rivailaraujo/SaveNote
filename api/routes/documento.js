@@ -10,6 +10,6 @@ router.post("/", controllerDocumento.postDocumento);
 router.post("/notebook", login.obrigatorio , controllerDocumento.postNotebook);
 router.get("/", controllerDocumento.getDocumento);
 router.get("/notebooks",login.opcional, controllerDocumento.getNotebooks);
-
-
+router.put("/notebook", login.obrigatorio , controllerDocumento.editarNotebook);
+router.delete("/notebook", login.obrigatorio , controllerDocumento.excluirNotebook);
 module.exports = router;
