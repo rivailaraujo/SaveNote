@@ -63,7 +63,7 @@
                   </a>
                 </li>
                 <li *ngFor="let notebook of this.meusnotebooks" class="item">
-                  <a> {{notebook.nome_notebook}}
+                  <a class="ellipsis"> {{notebook.nome_notebook}}
                     <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
                     <span (click)="editar(notebook)" class="badge badge-pill badge-primary editbut"
                       style="margin-top: 1px; font-size: 85%; cursor: pointer">✎</span>

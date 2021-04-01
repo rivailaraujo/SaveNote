@@ -56,15 +56,23 @@
   box-shadow: none;
 }
 
-.CodeMirror-sizer {
-  height: 838px;
-  border-right: 0px;
+@media screen and (max-height: 1000px) {
+
+  .anotacoes {
+    height: 728px;
+    overflow: auto;
+  }
 }
 
-.anotacoes {
-  height: 728px;
-  overflow: auto;
+@media screen and (max-height: 800px) {
+
+  .anotacoes {
+    height: 560px;
+    overflow: auto;
+  }
 }
+
+
 
 .fixedButton {
   position: absolute;
@@ -103,7 +111,7 @@
   background: #fff;
   box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
   transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
-  padding: 14px 80px 18px 16px;
+  padding: 14px 18px 18px 16px;
   width: 93%;
   margin-bottom: 10px;
 }
@@ -112,17 +120,19 @@
     background-image: url(https://img.icons8.com/color/452/story-book.png);
         background-repeat: no-repeat;
       background-position: right;
-      background-size: 80px;
+      background-position-y: 28px;
+      background-size: 70px;
   }
 
 p {
     margin-top: 0;
     margin-bottom: 0.3rem;
+    font-size: 12px;
 }
 
 .cardtitle.card-1.active{
-  
-    background-color: #1c66e5b0 !important;
+
+    background-color: #31353D !important;
     color: #ffffff !important;
   }
 .card.active{
@@ -312,4 +322,11 @@ p {
   .editor-toolbar-2 a.no-mobile {
       display: none;
   }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
 }
