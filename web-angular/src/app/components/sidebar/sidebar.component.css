@@ -537,8 +537,8 @@
   }
 
   .ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
+    width: 113px;
     text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
