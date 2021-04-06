@@ -57,15 +57,15 @@
 
             <div class="sidebar-submenu active" style="display: block;">
               <ul>
-                <li *ngIf="this.meusnotebooks.mensagem" class="item">
+                <li *ngIf="this.meusnotebooks == 0" class="item">
                   <a>Não há Notebooks
 
                   </a>
                 </li>
-                <li *ngFor="let notebook of this.meusnotebooks" class="item">
+                <li *ngFor="let notebook of this.meusnotebooks" class="item"  (click)="clickEvent(notebook)" [ngClass]="notebook.status ? 'active' : ''">
                   <a> 
                     <div  style="display: inline-flex;">
-                      <div class="ellipsis">{{notebook.nome_notebook}}</div>
+                      <div class="ellipsis item" [ngClass]="notebook.status ? 'active' : ''">{{notebook.nome_notebook}}</div>
                     </div>
                     <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
                     <span (click)="editar(notebook)" class="badge badge-pill badge-primary editbut"

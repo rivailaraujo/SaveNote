@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from '../../../environments/environment';
 import * as $ from 'jquery';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sidebar',
@@ -11,12 +11,12 @@ import Swal from 'sweetalert2';
 })
 export class SidebarComponent implements OnInit {
   status: boolean = false;
-  meusnotebooks: any;
+  meusnotebooks: any = 0;
   
   
   
-  constructor(private Auth: AuthService, activatedRoute: ActivatedRoute) {
-    this.getMeusNotebooks();
+  constructor(private Auth: AuthService, private router: Router ) {
+    
     
     jQuery(function ($) {
 
@@ -67,16 +67,29 @@ export class SidebarComponent implements OnInit {
       }
   })
     .done((data) => {
+      data.map(function(item){
+        item.status = false;
+      });
       this.meusnotebooks = data;
       console.log(this.meusnotebooks);
-      
     })
     .fail((error) => {
       //console.log(error);
     });
   }
-clickEvent(){
-    this.status = !this.status;       
+clickEvent(notebook){
+  this.meusnotebooks.map(function(item){
+    if(item.id_notebook == notebook.id_notebook){
+      notebook.status = !notebook.status;  
+    }else{
+      item.status = false;
+    }
+  });
+  
+  this.router.navigateByUrl('/editor', {
+    state: { id: notebook.id_notebook}
+    })
+       
 }
   ngOnInit(): void {
     
@@ -96,6 +109,7 @@ clickEvent(){
     .fail((error) => {
       //console.log(error);
     });
+    this.getMeusNotebooks();
   
   }
   
