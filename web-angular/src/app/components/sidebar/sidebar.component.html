@@ -62,10 +62,10 @@
 
                   </a>
                 </li>
-                <li *ngFor="let notebook of this.meusnotebooks" class="item"  (click)="clickEvent(notebook)" [ngClass]="notebook.status ? 'active' : ''">
+                <li *ngFor="let notebook of this.meusnotebooks" class="item"  (click)="clickEvent(notebook)" [ngClass]="notebook.status || notebook_selecionado == notebook.id_notebook ? 'active' : ''">
                   <a> 
                     <div  style="display: inline-flex;">
-                      <div class="ellipsis item" [ngClass]="notebook.status ? 'active' : ''">{{notebook.nome_notebook}}</div>
+                      <div class="ellipsis item" [ngClass]="notebook.status || notebook_selecionado == notebook.id_notebook ? 'active' : ''">{{notebook.nome_notebook}}</div>
                     </div>
                     <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
                     <span (click)="editar(notebook)" class="badge badge-pill badge-primary editbut"

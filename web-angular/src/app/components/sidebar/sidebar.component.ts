@@ -12,10 +12,11 @@ import Swal from 'sweetalert2';
 export class SidebarComponent implements OnInit {
   status: boolean = false;
   meusnotebooks: any = 0;
+  notebook_selecionado: any;
   
   
   
-  constructor(private Auth: AuthService, private router: Router ) {
+  constructor(private Auth: AuthService, private router: Router, private route: ActivatedRoute ) {
     
     
     jQuery(function ($) {
@@ -72,6 +73,12 @@ export class SidebarComponent implements OnInit {
       });
       this.meusnotebooks = data;
       console.log(this.meusnotebooks);
+      this.route.params.subscribe( parametros => {
+        if (parametros['id']) {
+          this.notebook_selecionado = parametros['id']
+          //console.log(this.notebook_selecionado)
+        }
+      });
     })
     .fail((error) => {
       //console.log(error);
@@ -86,12 +93,11 @@ clickEvent(notebook){
     }
   });
   
-  this.router.navigateByUrl('/editor', {
-    state: { id: notebook.id_notebook}
-    })
+  this.router.navigate(['/editor',notebook.id_notebook]);
        
 }
   ngOnInit(): void {
+    
     
     $.ajax({
       type: 'GET',
@@ -110,7 +116,7 @@ clickEvent(notebook){
       //console.log(error);
     });
     this.getMeusNotebooks();
-  
+    
   }
   
   logado(){
@@ -126,7 +132,7 @@ clickEvent(notebook){
       '<input placeholder = "Defina um nome para o Notebook" id="swal-input1" class="swal2-input">' +
       '<div><input type="checkbox" id="flag" name="flag"><label for="flag">&nbsp Público</label></div>',
       showCancelButton: true,
-      confirmButtonText: 'Criar Notebook',
+      confirmButtonText: 'Criar',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
         let dados = {
