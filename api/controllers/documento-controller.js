@@ -2,6 +2,7 @@ const mysql = require("../mysql");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const fs = require('fs');
+const crypto = require('crypto')
 //INSERT INTO `notebook` (`nome_notebook`, `publico`, `avaliacao_media`, `id_usuario`, `criado`) VALUES ('', '', '0', '', '');
 
 exports.postNotebook = async (req, res, next) => {
@@ -192,6 +193,78 @@ exports.excluirNotebook = async (req, res, next) => {
 
     } catch (error) {
 
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.postAnotacao = async (req, res, next) => {
+
+    try {
+        //SELECT * FROM `notebook` WHERE nome_notebook = 'Segundo Notebook'
+        var response = await mysql.execute("SELECT * FROM `anotacao` WHERE nome_anotacao = ? AND id_notebook = ?",
+            [req.body.nome_anotacao, req.body.id_notebook]);
+
+        if (response.length > 0) {
+            res.status(409).send({
+                mensagem: "Anotação com nome ja existente!"
+            });
+        } else {
+
+            response = await mysql.execute("SELECT * FROM `notebook` WHERE id_usuario = ? AND id_notebook = ?",
+            [req.usuario.id_usuario, req.body.id_notebook]);
+
+            if (response.length < 0){
+                res.status(500).send({
+                    mensagem: "Notebook nao pertence ao usuario",
+                });
+            }else{
+                var hash = crypto.randomBytes(20).toString('hex');
+            fs.writeFile("./txts/"+hash+".txt", "Bem Vindo a sua nova anotação", function (erro) {
+
+                if (erro) {
+                    throw erro;
+                }
+                console.log("Arquivo salvo");
+                return res.status(200).send({
+                    mensagem: 'salvo',
+                });
+            });
+
+            response = await mysql.execute("INSERT INTO `anotacao` (`id_notebook`, `nome_anotacao`, `caminho`, `criado`) VALUES (?, ?, './txts/"+hash+".txt', NOW());",
+                [req.body.id_notebook, req.body.nome_anotacao]);
+            res.status(200).send({
+                mensagem: "Notebook criado com sucesso!"
+            });
+            }
+            
+        }
+
+    } catch (error) {
+
+        res.status(500).send({
+            error: hash,
+        });
+    }
+};
+
+exports.getNotebook = async (req, res, next) => {
+    try {
+        //res.status(200).send(req.usuario);
+
+        var response = await mysql.execute("SELECT nome_notebook, publico, avaliacao_media FROM `notebook` WHERE id_usuario = ? AND id_notebook = ?",
+            [req.usuario.id_usuario, req.params.id]);
+
+        if (response.length > 0) {
+            res.status(200).send(response);
+        } else {
+            res.status(200).send({
+                mensagem: "Não há notebook!"
+            });
+        }
+
+    } catch (error) {
         res.status(500).send({
             error: error,
         });
