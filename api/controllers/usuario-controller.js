@@ -65,7 +65,7 @@ exports.loginUsuario = async (req, res, next) => {
                     email: response[0].email,
                 },
                 process.env.JWT_KEY, {
-                    expiresIn: "1h",
+                    expiresIn: "24h",
                 }
             );
             await mysql.execute(
@@ -76,7 +76,7 @@ exports.loginUsuario = async (req, res, next) => {
             return res.status(200).send({
                 mensagem: "Login feito com sucesso",
                 token: token,
-                expiresIn: 1
+                expiresIn: 24
             });
         } else {
             return res.status(401).send({
