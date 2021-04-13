@@ -2,10 +2,11 @@ const mysql = require("../mysql");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
 exports.postUsuario = async (req, res, next) => {
     try {
 
-       
+
 
         var response = await mysql.execute(
             "SELECT * FROM usuario WHERE email = ?;",
@@ -31,7 +32,7 @@ exports.postUsuario = async (req, res, next) => {
             const hash = await bcrypt.hashSync(req.body.senha, 10);
 
             await mysql.execute(
-                "INSERT INTO usuario (nome, imagem, email, senha, cidade, estado, criado) VALUES(?,'web/public/img', ?, ?, ?, ?, NOW());",
+                "INSERT INTO usuario (nome, email, senha, cidade, estado, criado) VALUES(?, ?, ?, ?, ?, NOW());",
                 [req.body.nome, req.body.email, hash, req.body.cidade, req.body.estado])
 
             return res.status(201).send({
@@ -77,7 +78,7 @@ exports.loginUsuario = async (req, res, next) => {
                 token: token,
                 expiresIn: 1
             });
-        }else{
+        } else {
             return res.status(401).send({
                 mensagem: "Falha na autenticação",
             });
@@ -119,12 +120,41 @@ exports.getUsuarios = async (req, res, next) => {
 
 exports.getUsuario = async (req, res, next) => {
     try {
-        const response = await mysql.execute("SELECT nome,imagem,email FROM `usuario` WHERE id_usuario = ?", 
-        [req.usuario.id_usuario]);
+        const response = await mysql.execute("SELECT nome,imagem,email FROM `usuario` WHERE id_usuario = ?",
+            [req.usuario.id_usuario]);
         res.status(200).send(response);
     } catch (error) {
 
         res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.editarPerfil = async (req, res, next) => {
+    console.log(req.file)
+    try {
+        if (req.file == undefined) {
+            var response = await mysql.execute(
+                "UPDATE `usuario` SET `nome` = ?,`cidade` = ?, `estado` = ? WHERE `usuario`.`id_usuario` = ?",
+                [req.body.nome, req.body.cidade, req.body.estado, req.usuario.id_usuario]
+            );
+            return res.status(200).send({
+                mensagem: "Alteração feita com sucesso!",
+                //id_usuario: resultado.insertId,
+            });
+        } else {
+            var response = await mysql.execute(
+                "UPDATE `usuario` SET `nome` = ?, `imagem` = ?,`cidade` = ?, `estado` = ? WHERE `usuario`.`id_usuario` = ?",
+                [req.body.nome, 'http://localhost:3000/' + req.file.path, req.body.cidade, req.body.estado, req.usuario.id_usuario]
+            );
+            return res.status(200).send({
+                mensagem: "Alteração feita com sucesso!",
+                //id_usuario: resultado.insertId,
+            });
+        }
+    } catch (error) {
+        return res.status(500).send({
             error: error,
         });
     }

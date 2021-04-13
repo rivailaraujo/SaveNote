@@ -109,7 +109,7 @@ clickEvent(notebook){
       }
   })
     .done((data) => {
-      //console.log(data);
+      console.log(data);
       this.Auth.setUsuario(data[0]);
     })
     .fail((error) => {

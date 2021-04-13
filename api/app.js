@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-
+const path = require('path');
 const rotaUsuario = require('./routes/usuario')
 const rotaDocumento = require('./routes/documento')
 
@@ -10,6 +10,7 @@ app.use(morgan('dev'));
 //app.use(express.bodyParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.use((req, res, next) => {
