@@ -1,0 +1,132 @@
+<div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <!-- <div class="sidebar-brand">
+            <a >pro sidebar</a>
+            <div id="close-sidebar">
+                <i class="fas fa-times"></i>
+            </div>
+        </div> -->
+      <div *ngIf="logado()" class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded"
+            src={{this.Auth.getUsuario().imagem}}
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">
+            <strong>{{this.Auth.getUsuario().nome}}</strong>
+          </span>
+          <span class="user-role">{{this.Auth.getUsuario().email}}</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <div class="sidebar-search">
+        <div>
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="Search...">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          <li *ngIf="logado()" class="sidebar-dropdown active">
+            <a>
+              <i class="fa fa-book"></i>
+              <span style="margin-top: 5px !important;">Notebooks</span>
+              <span id="criar-notebook-buttom" (click)="criarNotebook()"
+                class="badge badge-pill badge-primary criar-notebook"
+                style="margin-top: 5px; margin-right: 8px; font-size: 85%; cursor: pointer;">+ Criar</span>
+            </a>
+
+            <div class="sidebar-submenu active" style="display: block;">
+              <ul>
+                <li *ngIf="this.meusnotebooks == 0" class="item">
+                  <a>Não há Notebooks
+
+                  </a>
+                </li>
+                <li *ngFor="let notebook of this.meusnotebooks" class="item"  (click)="clickEvent(notebook)" [ngClass]="notebook.status || notebook_selecionado == notebook.id_notebook ? 'active' : ''">
+                  <a> 
+                    <div  style="display: inline-flex;">
+                      <div class="ellipsis item" [ngClass]="notebook.status || notebook_selecionado == notebook.id_notebook ? 'active' : ''">{{notebook.nome_notebook}}</div>
+                    </div>
+                    <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
+                    <span (click)="editar(notebook)" class="badge badge-pill badge-primary editbut"
+                      style="margin-top: 1px; font-size: 85%; cursor: pointer">✎</span>
+
+                  </a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+          <li routerLink="/perfil">
+            <a>
+              <i class="fa fa-user"></i>
+              <span>Perfil</span>
+              
+            </a>
+          </li>
+          <li class="header-menu">
+            <span>Extra</span>
+          </li>
+          <li>
+            <a>
+              <i class="fa fa-book"></i>
+              <span>Documentation</span>
+              <span class="badge badge-pill badge-primary">Beta</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <i class="fa fa-calendar"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <i class="fa fa-folder"></i>
+              <span>Examples</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+    <!-- <div class="sidebar-footer">
+        <a >
+            <i class="fa fa-bell"></i>
+            <span class="badge badge-pill badge-warning notification">3</span>
+        </a>
+        <a >
+            <i class="fa fa-envelope"></i>
+            <span class="badge badge-pill badge-success notification">7</span>
+        </a>
+        <a >
+            <i class="fa fa-cog"></i>
+            <span class="badge-sonar"></span>
+        </a>
+        <a >
+            <i class="fa fa-power-off"></i>
+        </a>
+    </div> -->
+  </nav>
+</div>

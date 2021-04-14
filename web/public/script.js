@@ -35,13 +35,21 @@ window.onload = function () {
             "|", // Separator
             "guide"
         ],
-    
+        
     });
-    var convertTextAreaToMarkdown = function () {
+
+   
+
+    var convertTextAreaToMarkdown = async function () {
         
         var markdownText = simplemde.value();
         html = converter.makeHtml(markdownText);
         markdownArea.innerHTML = html;
+        var blocks = document.querySelectorAll('pre code:not(hljs)'); Array.prototype.forEach.call(blocks, hljs.highlightBlock);
+        //hljs.highlightBlock(markdownArea);
+        document.getElementsByClassName("fa fa-eye no-disable")[0].click();
+        //console.log()
+        //el.click();
     };
 
     simplemde.codemirror.on("change", function(){
@@ -81,5 +89,6 @@ window.onload = function () {
     
     };
     convertTextAreaToMarkdown();
+
     
 }
