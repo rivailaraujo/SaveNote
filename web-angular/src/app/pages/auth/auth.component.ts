@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
 })
 export class AuthComponent implements OnInit {
   temcidades: boolean = false;
@@ -59,7 +59,8 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.montaUF();
-    var body = document.querySelector('body');
+    //var body = document.querySelector('body');
+    var body = document.getElementById("1");
     // this.LoginModal.fire({
     // 	icon: 'success',
     // 	title: 'Login feito com sucesso'
