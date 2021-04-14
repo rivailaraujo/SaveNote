@@ -43,7 +43,7 @@
       <!-- sidebar-search  -->
       <div class="sidebar-menu">
         <ul>
-          <li class="header-menu">
+          <li *ngIf="logado()" class="header-menu">
             <span>General</span>
           </li>
           <li *ngIf="logado()" class="sidebar-dropdown active">
@@ -77,8 +77,8 @@
               </ul>
             </div>
           </li>
-          <li routerLink="/perfil">
-            <a>
+          <li *ngIf="logado()" >
+            <a routerLink="/perfil">
               <i class="fa fa-user"></i>
               <span>Perfil</span>
               
