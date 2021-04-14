@@ -1,0 +1,93 @@
+<app-sidebar></app-sidebar>
+        <app-header></app-header>
+        <div class="container-fluid" style="padding-left: 300px;">
+            <div class="container">
+                <div class="content primeiro-content">
+                    <div class="segunda-coluna">
+                        <h2 class="title title-second">Editar Perfil</h2>
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src= {{this.dadosPerfil.imagem}} alt="Admin" class="rounded-circle" width="150">
+                            <div class="mt-3">
+                              <button (click)="alterarImagem()" class="btn btn-second" style="width: 151px" >Alterar Imagem</button>
+                              <!--<p class="text-secondary mb-1">Full Stack Developer</p>
+                              <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                              <button class="btn btn-outline-primary">Message</button>-->
+                            </div>
+                          </div>
+                        <form [formGroup]="perfilForm" class="form">
+                        <label class="label-input" for="">
+                            <i class="far fa-user icon-modify"></i>
+                            <input type="text" formControlName="nome" placeholder="Nome de Usuário" required>
+                
+                        </label>
+                
+                        <div
+                            *ngIf="perfilForm.controls.nome.invalid && (perfilForm.controls.nome.dirty || perfilForm.controls.nome.touched)"
+                            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+                
+                            <div *ngIf="perfilForm.controls.nome.errors?.required">
+                            Nome é obrigatório
+                            </div>
+                            <div *ngIf="perfilForm.controls.nome.errors?.minlength">
+                            Nome dever ter no mínimo 4 caracteres
+                            </div>
+                        </div>
+                
+                        <label class="label-input" for="">
+                            <i class="fas fa-map-marked-alt icon-modify"></i>
+                            <div *ngIf = "estados == false"  class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            <select formControlName="estado" id="estado" type="estado" placeholder="Estado" required>
+                            <option  value="">Selecione seu estado</option>
+                            </select>
+                        </label>
+                        <div
+                            *ngIf="perfilForm.controls.estado.invalid && (perfilForm.controls.estado.dirty || perfilForm.controls.estado.touched)"
+                            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+                
+                            <div *ngIf="perfilForm.controls.estado.errors?.required">
+                            Estado é obrigatório
+                            </div>
+                        </div>
+                        
+                        <label class="label-input" for="">
+                            
+                            <i class="fas fa-map-marker-alt icon-modify"></i>
+                            <div *ngIf = "cidades == false"  class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            <select formControlName="cidade" id="cidade" type="cidade" placeholder="Cidade" required>
+                            </select>
+                        </label>
+                
+                        <div
+                            *ngIf="perfilForm.controls.cidade.invalid && (perfilForm.controls.cidade.dirty || perfilForm.controls.cidade.touched)"
+                            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+                
+                            <div *ngIf="perfilForm.controls.cidade.errors?.required">
+                            Cidade é obrigatória
+                            </div>
+                        </div>
+                
+                
+                        <label class="label-input" for="">
+                            <i class="far fa-envelope icon-modify"></i>
+                            <input formControlName="email" type="email" placeholder="E-mail" required>
+                        </label>
+                
+                        <div
+                            *ngIf="perfilForm.controls.email.invalid && (perfilForm.controls.email.dirty || perfilForm.controls.email.touched)"
+                            class="alert alert-danger" style="padding: 0; padding-left: 12px; font-size: 12px;">
+                
+                            <div *ngIf="perfilForm.controls.email.errors?.required">
+                                Email é obrigatório
+                            </div>
+                            <div *ngIf="perfilForm.controls.email.errors?.email">
+                                Email inválido
+                            </div>
+                        </div>
+                            
+                        
+                        </form>
+                        <button type="submit" (click) = "editarPerfil()" class="btn btn-second">salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>

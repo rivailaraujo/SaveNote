@@ -159,3 +159,29 @@ exports.editarPerfil = async (req, res, next) => {
         });
     }
 };
+
+exports.getPerfil = async (req, res, next) => {
+    try {
+        const response = await mysql.execute("SELECT nome,imagem,email,cidade,estado FROM `usuario` WHERE id_usuario = ?",
+            [req.usuario.id_usuario]);
+        res.status(200).send(response);
+    } catch (error) {
+
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.getPerfilPublico = async (req, res, next) => {
+    try {
+        const response = await mysql.execute("SELECT nome,imagem,email,cidade,estado,id_usuario FROM `usuario` WHERE id_usuario = ?",
+            [req.params.id]);
+        res.status(200).send(response);
+    } catch (error) {
+
+        res.status(500).send({
+            error: error,
+        });
+    }
+};

@@ -107,7 +107,7 @@ export class AuthComponent implements OnInit {
         icon: 'success',
         title: 'Login feito com sucesso',
         });
-        this.router.navigate(['/editor']);
+        this.router.navigate(['/comunidade']);
         
       })
       .catch((error) => {
