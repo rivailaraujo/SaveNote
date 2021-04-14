@@ -23,7 +23,7 @@ USE `savenote_db` ;
 CREATE TABLE IF NOT EXISTS `savenote_db`.`usuario` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(50) NOT NULL,
-  `imagem` VARCHAR(45) NOT NULL,
+  `imagem` VARCHAR(500) NOT NULL DEFAULT 'http://localhost:3000/uploads/user.jpg',
   `email` VARCHAR(255) NOT NULL,
   `senha` VARCHAR(60) NOT NULL,
   `cidade` VARCHAR(45) NOT NULL,
