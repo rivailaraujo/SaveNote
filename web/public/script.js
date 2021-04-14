@@ -1,6 +1,5 @@
 var url = "http://localhost:8000"; //Sua URL
-//const hljs = require('highlight.js');
-
+//const hljs = require('./js/highlight.js');
 
 
 
@@ -44,10 +43,7 @@ window.onload = function () {
     var convertTextAreaToMarkdown = async function () {
         
         var markdownText = simplemde.value();
-        
         html = converter.makeHtml(markdownText);
-        console.log(html)
-        
         markdownArea.innerHTML = html;
         var blocks = document.querySelectorAll('pre code:not(hljs)'); Array.prototype.forEach.call(blocks, hljs.highlightBlock);
         //hljs.highlightBlock(markdownArea);
@@ -85,8 +81,8 @@ window.onload = function () {
     
     
         //var teste = document.getElementById('teste');
-        pad.addEventListener('change', convertTextAreaToMarkdown);
-        teste.addEventListener('input', convertTextAreaToMarkdown);
+        //pad.addEventListener('input', convertTextAreaToMarkdown);
+        //teste.addEventListener('input', convertTextAreaToMarkdown);
         //save.addEventListener('click', savefile);
         
     
