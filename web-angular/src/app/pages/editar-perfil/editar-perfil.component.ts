@@ -138,52 +138,51 @@ export class EditarPerfilComponent implements OnInit {
   }
 
   async editarPerfil() {
+    console.log("aki: ", this.imagem)
     if(this.perfilForm.valid) {
       let data = new FormData();
       data.append('nome', this.perfilForm.controls.nome.value)
       data.append('estado', this.perfilForm.controls.estado.value)
       data.append('cidade', this.perfilForm.controls.cidade.value)
-      if(this.imagem != ''){
-        let blob = await fetch(this.imagem).then(r => r.blob());
-        //var file = new File([blob]);
-        //data.append('imagem', file) 
+      if(this.imagem != undefined){
+        data.append('imagem', this.imagem) 
       }
       new Response(data).text().then(console.log)
       $.ajax({
         type: 'PUT',
         url: environment.api_url + '/usuario/perfil',
-        dataType: 'formdata',
         data: data,
         processData: false,
         contentType: false,
         async: true,
         headers: {
           "Authorization": "Bearer " + this.Auth.getToken()
-        }
-      })
-        .done((response) => {
+        },
+        success: function (result) {
           Swal.fire({
             position: 'center',
             icon: 'success',
             title: 'Tudo certo',
-            text: 'Cadastrado com sucesso',
+            text: 'Perfil editado!',
             showConfirmButton: false,
             timer: 2000,
             width: '300px',
           });
-        })
-        .fail((error) => {
+        },
+        error: function() {
           Swal.fire({
             position: 'center',
             icon: 'error',
             title: 'Oops...',
+            text: 'Algo deu errado',
             showConfirmButton: false,
             timer: 2000,
             width: '300px',
           });
-        });
+        }
+      })
     }
-    
+    window.location.reload();
   }
 
   async alterarImagem() {
@@ -197,11 +196,13 @@ export class EditarPerfilComponent implements OnInit {
     })
     
     if (file) {
+      this.imagem = file;
       const reader = new FileReader()
       reader.onload = (e) => {
-        this.imagem = e.target.result;
+        //this.imagem = e.target.result;
         this.dadosPerfil.imagem = e.target.result;
       }
+      
       reader.readAsDataURL(file)
     }
   }
