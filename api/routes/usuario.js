@@ -26,6 +26,10 @@ router.post("/logout", login.obrigatorio, controllerUsuario.logoutUsuario);
 //router.post("/teste", login, controllerUsuario.loginUsuario);
 
 router.get("/notebooks", login.obrigatorio , controllerDocumento.getNotebooksUsuario);
+
 router.put("/perfil", login.obrigatorio, upload.single('imagem'), controllerUsuario.editarPerfil)
 
+router.get("/perfil", login.obrigatorio, controllerUsuario.getPerfil);
+
+router.get("/perfilPublico/:id", login.opcional, controllerUsuario.getPerfilPublico);
 module.exports = router;

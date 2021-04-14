@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { EditorComponent } from './pages/editor/editor.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { EditorComponent } from './pages/editor/editor.component';
     HeaderComponent,
     SidebarComponent,
     EditorComponent,
+    PerfilComponent,
+    EditarPerfilComponent,
   ],
   imports: [
     BrowserModule,
