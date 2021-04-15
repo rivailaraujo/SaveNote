@@ -300,6 +300,7 @@ clickEvent(notebook){
             'success'
           )
           this.getMeusNotebooks();
+          this.router.navigate(['/comunidade']);
         })
         .fail((error) => {
           Swal.fire({
