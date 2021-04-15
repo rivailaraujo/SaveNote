@@ -268,6 +268,52 @@ clickEvent(notebook){
     
   }
 
+  excluirNotebook(notebook){
+
+    Swal.fire({
+      title: 'Você tem certeza?',
+      text: "Você perderá todas as anotações deste notebook!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let dados = {
+          id_notebook: notebook.id_notebook
+        }
+        $.ajax({
+          type: 'DELETE',
+          url: environment.api_url + '/documento/notebook',
+          dataType: 'json',
+          data: dados,
+          async: true,
+          headers: {
+            "Authorization": "Bearer " + this.Auth.getToken()
+          }
+        })
+        .done((data) => {
+          Swal.fire(
+            'Tudo Certo!',
+            'Alterações feitas com Sucesso!',
+            'success'
+          )
+          this.getMeusNotebooks();
+        })
+        .fail((error) => {
+          Swal.fire({
+            showConfirmButton: false,
+            icon: 'error',
+            title: 'Ops...',
+            text: 'Nome já existente',
+            timer: 2000
+          })
+        });
+      }
+    })
+  }
+
 }
 
 
