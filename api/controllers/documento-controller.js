@@ -8,8 +8,8 @@ const crypto = require('crypto')
 exports.postNotebook = async (req, res, next) => {
     try {
         //SELECT * FROM `notebook` WHERE nome_notebook = 'Segundo Notebook'
-        var response = await mysql.execute("SELECT * FROM `notebook` WHERE nome_notebook = ?",
-            [req.body.nome_notebook]);
+        var response = await mysql.execute("SELECT * FROM `notebook` WHERE nome_notebook = ? AND id_usuario = ?",
+            [req.body.nome_notebook, req.usuario.id_usuario]);
 
         if (response.length > 0) {
             res.status(409).send({
