@@ -18,6 +18,7 @@ export class EditorComponent implements OnInit {
     avaliacao_media: 0,
     publico: 0,
   };
+  anotacoes: any;
   constructor(private Auth: AuthService,private route: ActivatedRoute ) { 
      //var simplemde = new SimpleMDE();
 
@@ -51,6 +52,7 @@ export class EditorComponent implements OnInit {
   })
     .done((data) => {
       this.notebook = data[0];
+      this.getInfoAnotacao(notebook)
       console.log(this.notebook)
     })
     .fail((error) => {
@@ -121,6 +123,39 @@ export class EditorComponent implements OnInit {
       barraedicao.style.display = "none";
       menu.style.display = "block";
     }
+  }
+
+  getInfoAnotacao(notebook){
+    $.ajax({
+      type: 'GET',
+      url: environment.api_url + '/documento/anotacoesUsuario/'+notebook,
+      dataType: 'json',
+      async: true,
+      headers: {
+        "Authorization": "Bearer " + this.Auth.getToken()
+      }
+  })
+    .done((data) => {
+      data.map(function(nota){
+        nota.status = false;
+      });
+      console.log(notebook)
+      this.anotacoes = data;
+      console.log(this.anotacoes)
+    })
+    .fail((error) => {
+      //console.log(error);
+    });
+  }
+
+  getNota(anotacao){
+    this.anotacoes.map(function(item){
+      if(item.id_anotacao == anotacao.id_anotacao){
+        anotacao.status = !anotacao.status;  
+      }else{
+        item.status = false;
+      }
+    });
   }
 
 }
