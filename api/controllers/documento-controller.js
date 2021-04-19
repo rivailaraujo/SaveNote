@@ -270,3 +270,25 @@ exports.getNotebook = async (req, res, next) => {
         });
     }
 };
+
+exports.getAnotacoesUsuario = async (req, res, next) => {
+    try {
+        //res.status(200).send(req.usuario);
+
+        var response = await mysql.execute("SELECT id_anotacao, nome_anotacao, caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND notebook.id_usuario = ? AND anotacao.id_notebook = ?",
+            [req.usuario.id_usuario, req.params.id]);
+
+        if (response.length > 0) {
+            res.status(200).send(response);
+        } else {
+            res.status(200).send({
+                mensagem: "Não há Anotações!"
+            });
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            error: error,
+        });
+    }
+};

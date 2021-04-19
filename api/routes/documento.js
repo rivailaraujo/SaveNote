@@ -14,4 +14,5 @@ router.put("/notebook", login.obrigatorio , controllerDocumento.editarNotebook);
 router.delete("/notebook", login.obrigatorio , controllerDocumento.excluirNotebook);
 router.post("/anotacao", login.obrigatorio , controllerDocumento.postAnotacao);
 router.get("/notebook/:id",login.opcional, controllerDocumento.getNotebook);
+router.get("/anotacoesUsuario/:id", login.obrigatorio , controllerDocumento.getAnotacoesUsuario);
 module.exports = router;
