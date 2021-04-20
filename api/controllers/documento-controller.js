@@ -34,13 +34,15 @@ exports.postNotebook = async (req, res, next) => {
 
 exports.postDocumento = async (req, res, next) => {
     try {
-
+        var response = await mysql.execute("SELECT caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND notebook.id_usuario = ? AND anotacao.id_notebook = ? AND id_anotacao = ?",
+        [req.usuario.id_usuario, req.params.id_notebook, req.params.id_anotacao]);
+        
         data = req.body;
 
-        console.log(data)
+        //console.log(data)
         //var fs = require('fs');
         //console.log(data)
-        fs.writeFile("./txts/teste2.txt", data.txt, function (erro) {
+        fs.writeFile(response[0].caminho, data.txt, function (erro) {
 
             if (erro) {
                 throw erro;
@@ -62,9 +64,13 @@ exports.postDocumento = async (req, res, next) => {
 };
 
 exports.getDocumento = async (req, res, next) => {
+    var response = await mysql.execute("SELECT caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND notebook.id_usuario = ? AND anotacao.id_notebook = ? AND id_anotacao = ?",
+    [req.usuario.id_usuario, req.params.id_notebook, req.params.id_anotacao]);
+
     try {
 
-        fs.readFile('./txts/teste2.txt', 'utf8', function (err, data) {
+
+        fs.readFile(response[0].caminho, 'utf8', function (err, data) {
             if (err) {
 
                 throw err;
@@ -74,8 +80,6 @@ exports.getDocumento = async (req, res, next) => {
             );
 
         });
-
-
 
     } catch (error) {
         return res.status(500).send({
