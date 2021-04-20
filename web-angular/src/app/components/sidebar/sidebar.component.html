@@ -28,7 +28,7 @@
         </div>
       </div>
       <!-- sidebar-header  -->
-      <div class="sidebar-search">
+      <!-- <div class="sidebar-search">
         <div>
           <div class="input-group">
             <input type="text" class="form-control search-menu" placeholder="Search...">
@@ -39,12 +39,12 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- sidebar-search  -->
       <div class="sidebar-menu">
         <ul>
           <li *ngIf="logado()" class="header-menu">
-            <span>General</span>
+            <span>Geral</span>
           </li>
           <li *ngIf="logado()" class="sidebar-dropdown active">
             <a>
@@ -85,25 +85,18 @@
             </a>
           </li>
           <li class="header-menu">
-            <span>Extra</span>
+            <span>Extras</span>
           </li>
           <li>
-            <a>
-              <i class="fa fa-book"></i>
-              <span>Documentation</span>
-              <span class="badge badge-pill badge-primary">Beta</span>
-            </a>
-          </li>
-          <li>
-            <a>
-              <i class="fa fa-calendar"></i>
-              <span>Calendar</span>
+            <a href="https://gitlab.com/Rivail/deathnote">
+              <i class="fa fa-folder"></i>
+              <span>GitLab</span>
             </a>
           </li>
           <li>
             <a>
               <i class="fa fa-folder"></i>
-              <span>Examples</span>
+              <span>Sobre</span>
             </a>
           </li>
         </ul>

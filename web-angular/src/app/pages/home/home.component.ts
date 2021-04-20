@@ -83,6 +83,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  abrirNotebook(notebook){
+    this.router.navigate(['/notebook',notebook.id_notebook]);
+         
+  }
+
   logado(){
     return this.Auth.isLoggedIn();
     //console.log(this.Auth.isLoggedIn())

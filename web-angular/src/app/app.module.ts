@@ -11,6 +11,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { EditorComponent } from './pages/editor/editor.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
+import { NotebookPublicoComponent } from './pages/notebook-publico/notebook-publico.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.compo
     EditorComponent,
     PerfilComponent,
     EditarPerfilComponent,
+    NotebookPublicoComponent,
   ],
   imports: [
     BrowserModule,

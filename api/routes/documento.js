@@ -18,4 +18,7 @@ router.get("/anotacoesUsuario/:id", login.obrigatorio , controllerDocumento.getA
 router.delete("/anotacao", login.obrigatorio , controllerDocumento.excluirAnotacao);
 router.get("/nota/:id_notebook/:id_anotacao", login.obrigatorio, controllerDocumento.getDocumento);
 router.post("/nota/:id_notebook/:id_anotacao", login.obrigatorio, controllerDocumento.postDocumento);
+router.get("/notebookPublico/:id",login.opcional, controllerDocumento.getNotebookPublico);
+router.get("/anotacoes/:id",login.opcional, controllerDocumento.getAnotacoesUsuarioPublica);
+router.get("/notaPublica/:id_notebook/:id_anotacao", login.opcional, controllerDocumento.getDocumentoPublico);
 module.exports = router;

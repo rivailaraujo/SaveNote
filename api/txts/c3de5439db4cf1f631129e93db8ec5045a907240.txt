@@ -1,6 +1,13 @@
 # SaveNote
 
 
+
+| Entrega1| Entrega2 | Entrega3 |
+| -------- | -------- | -------- |
+| OK  | OK    | OK   |
+
+
+
 Programa para criação de notas inteligentes em Markdown e Aúdio.
 
 ## Instalação
