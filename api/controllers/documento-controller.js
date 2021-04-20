@@ -180,7 +180,8 @@ exports.excluirNotebook = async (req, res, next) => {
             [req.body.id_notebook]);
 
         if (response.length > 0) {
-            response = await mysql.execute("DELETE FROM `notebook` WHERE `notebook`.`id_notebook` = ?",[req.body.id_notebook]);
+            response = await mysql.execute("DELETE FROM `notebook` WHERE `notebook`.`id_notebook` = ?",
+            [req.body.id_notebook]);
             res.status(200).send({
                 mensagem: "Notebook excluido com sucesso!"
             });
@@ -287,6 +288,34 @@ exports.getAnotacoesUsuario = async (req, res, next) => {
         }
 
     } catch (error) {
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+
+exports.excluirAnotacao = async (req, res, next) => {
+    try {
+        //UPDATE `notebook` SET `publico` = '1' WHERE `notebook`.`id_notebook` = 11
+        var response = await mysql.execute("SELECT * FROM `anotacao` WHERE id_anotacao = ?",
+            [req.body.id_anotacao ]);
+
+        if (response.length > 0) {
+            response = await mysql.execute("DELETE anotacao FROM anotacao INNER JOIN notebook ON anotacao.id_notebook = notebook.id_notebook  WHERE notebook.id_usuario = ? AND anotacao.id_anotacao = ?",
+            [req.usuario.id_usuario, req.body.id_anotacao, req.params.id]);
+            res.status(200).send({
+                mensagem: "Anotacao excluido com sucesso!"
+            });
+
+        } else {
+            res.status(400).send({
+                mensagem: "Anotacão não existe!"
+            });
+        }
+
+    } catch (error) {''
+
         res.status(500).send({
             error: error,
         });
