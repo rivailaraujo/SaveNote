@@ -17,9 +17,10 @@
                     <span _ngcontent-uhf-c47="" id="criar-notebook-buttom" class="badge badge-pill badge-primary criar-notebook"  style="margin-bottom: 0.3rem; " [ngStyle]="{'background-color': notebook.publico == 0 ? '#6c757d' : ''}">Público</span>
                     <span _ngcontent-uhf-c47="" id="criar-notebook-buttom" class="badge badge-pill badge-primary criar-notebook"  style="margin-bottom: 0.3rem; background-color:#6c757d; margin-left: 3px;" [ngStyle]="{'background-color': notebook.publico == 1 ? '#6c757d' : ''}">Privado</span>
                   </div>
+                  
                 <div class="anotacoes">
-
-                  <div *ngFor="let anotacao of anotacoes"class="card" [ngClass]="anotacao.status ? 'active' : ''">
+                  <div *ngIf = "this.anotacoes == null " class = "card"style="text-align: center; line-height: 100px;height: 100px; background-color: #cccccc;">Não Há Anotações!!</div>
+                  <div *ngFor="let anotacao of anotacoes"class="card" [ngClass]="anotacao.status || anotacao_selecionada == anotacao.id_anotacao ? 'active' : ''">
                     <div (click)="getNota(anotacao)"class="card-content">
                       <div class="card-body">
                         <div class="media d-flex">
@@ -51,8 +52,9 @@
               </div>
               
               <div class="col full-height" style="padding-left: 0px;">
-                <div class="editor-toolbar-2"><a (click) = "alterarEditor()" tabindex="-1" class="fa fa-floppy-o">Editar</a></div>
-                <textarea id="teste"></textarea>
+                <div *ngIf = "this.anotacoes != null && this.anotacao_selecionada != null" class="editor-toolbar-2"><a (click) = "alterarEditor()" tabindex="-1" class="fa fa-floppy-o">&nbsp;Editar</a></div>
+                <textarea *ngIf = "this.anotacoes != null && this.anotacao_selecionada != null "id="teste"></textarea>
+                <div *ngIf = "this.anotacao_selecionada == null "class="card center full-height" style="background-color: #cccccc;">Selecione uma Anotação!!</div>
               </div>
               
           </div>

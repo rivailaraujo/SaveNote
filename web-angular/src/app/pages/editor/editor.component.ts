@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { data } from 'jquery';
 declare const showdown: any;
 declare const SimpleMDE: any;
 var simplemde: any;
@@ -13,6 +14,7 @@ var simplemde: any;
   styleUrls: ['./editor.component.css'],
 })
 export class EditorComponent implements OnInit {
+  
   dados;
   notebook_selecionado: number;
   notebook = {
@@ -20,15 +22,16 @@ export class EditorComponent implements OnInit {
     avaliacao_media: 0,
     publico: 0,
   };
-  anotacoes: any = '';
+  anotacoes: any = null;
   anotacao: any;
+  anotacao_selecionada: any = null;
   constructor(private Auth: AuthService, private route: ActivatedRoute) {
     //var simplemde = new SimpleMDE();
     //simplemde.value("This text will appear in the editor");
   }
 
   ngOnInit(): void {
-    this.anotacoes = '';
+    
     //this.carregarEditor('');
     //let x: any =  document.getElementsByClassName("editor-toolbar")[0] as HTMLElement ;
     //x.style.display = "none";
@@ -37,6 +40,12 @@ export class EditorComponent implements OnInit {
         this.notebook_selecionado = parametros['id'];
         console.log(this.notebook_selecionado);
         this.getInfoNotebook(this.notebook_selecionado);
+        if (simplemde != undefined) {
+          simplemde.toTextArea();
+          simplemde = null;
+        }
+        this.anotacao_selecionada = null;
+        this.anotacoes = null;
       }
     });
   }
@@ -91,6 +100,7 @@ export class EditorComponent implements OnInit {
         })
           .done((data) => {
             Swal.fire('Tudo Certo!', 'Notebook Criado com Sucesso!', 'success');
+            this.getInfoAnotacao(this.notebook_selecionado);
           })
           .fail((error) => {
             Swal.fire({
@@ -116,12 +126,18 @@ export class EditorComponent implements OnInit {
       },
     })
       .done((data) => {
-        data.map(function (nota) {
-          nota.status = false;
-        });
-        console.log(notebook);
-        this.anotacoes = data;
-        console.log(this.anotacoes);
+        console.log(data);
+        if (data.mensagem) {
+          this.anotacoes = null;
+        } else {
+          data.map(function (nota) {
+            nota.status = false;
+          });
+          console.log(notebook);
+          this.anotacoes = data;
+          console.log(this.anotacoes);
+        }
+
       })
       .fail((error) => {
         //console.log(error);
@@ -129,6 +145,8 @@ export class EditorComponent implements OnInit {
   }
 
   getNota(anotacao) {
+    this.anotacao_selecionada = anotacao.id_anotacao;
+    console.log(this.anotacao_selecionada);
     if (simplemde != undefined) {
       simplemde.toTextArea();
       simplemde = null;
@@ -214,6 +232,14 @@ export class EditorComponent implements OnInit {
     });
 
     function savefile() {
+
+      let SucessModal = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: false,
+      });
       var texto = {
         txt: simplemde.value(),
       };
@@ -252,9 +278,12 @@ export class EditorComponent implements OnInit {
             barraedicao.style.display = 'none';
             menu.style.display = 'block';
           }
-          console.log('OIS');
+          SucessModal.fire({
+            icon: 'success',
+            title: 'Salvo!',
+            });
         })
-        .fail((error) => {});
+        .fail((error) => { });
     }
 
     var elementeclick = document.getElementsByClassName(
