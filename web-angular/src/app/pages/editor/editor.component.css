@@ -8,15 +8,16 @@
 }
 
 .card :hover .buttonlist {
-  background-color: #007bffc7;
-  border: none;
-  color: white;
+  background-color: white;
+  color: #3d97f8;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 85%;
   margin: 4px 2px;
   border-radius: 10rem;
+  border-width: 1px;
+  border-color: #3d97f8;
 }
 
 .card-body {
@@ -112,7 +113,7 @@
   box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
   transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
   padding: 14px 18px 18px 16px;
-  width: 93%;
+  width: 96%;
   margin-bottom: 10px;
 }
 
@@ -255,7 +256,6 @@ p {
   text-align: center;
   text-decoration: none!important;
   color: #2c3e50!important;
-  width: 30px;
   height: 30px;
   margin: 0;
   border: 1px solid transparent;
@@ -329,4 +329,10 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
+}
+
+.center {
+  text-align: center;
+  line-height: 838px;
+  height: 838px;
 }
