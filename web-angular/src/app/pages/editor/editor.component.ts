@@ -313,4 +313,59 @@ export class EditorComponent implements OnInit {
       menu.style.display = 'block';
     }
   }
+  
+  excluirAnotacao(anotacao){
+
+    Swal.fire({
+      title: 'Você tem certeza?',
+      text: "Você perderá sua anotação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let dados = {
+          id_notebook: this.notebook_selecionado,
+          id_anotacao: anotacao.id_anotacao
+        }
+        $.ajax({
+          type: 'DELETE',
+          url: environment.api_url + '/documento/anotacao',
+          dataType: 'json',
+          data: dados,
+          async: true,
+          headers: {
+            "Authorization": "Bearer " + this.Auth.getToken()
+          }
+        })
+        .done((data) => {
+          Swal.fire(
+            'Tudo Certo!',
+            'Alterações feitas com Sucesso!',
+            'success'
+          )
+          if (simplemde != undefined) {
+            simplemde.toTextArea();
+            simplemde = null;
+          }
+          this.anotacao_selecionada = null;
+          this.anotacoes = null;
+          this.getInfoAnotacao(this.notebook_selecionado);
+          //this.getMeusNotebooks();
+          //this.router.navigate(['/comunidade']);
+        })
+        .fail((error) => {
+          Swal.fire({
+            showConfirmButton: false,
+            icon: 'error',
+            title: 'Ops...',
+            text: 'Nome já existente',
+            timer: 2000
+          })
+        });
+      }
+    })
+  }
 }

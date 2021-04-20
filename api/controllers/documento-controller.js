@@ -306,8 +306,8 @@ exports.excluirAnotacao = async (req, res, next) => {
             [req.body.id_anotacao ]);
 
         if (response.length > 0) {
-            response = await mysql.execute("DELETE anotacao FROM anotacao INNER JOIN notebook ON anotacao.id_notebook = notebook.id_notebook  WHERE notebook.id_usuario = ? AND anotacao.id_anotacao = ?",
-            [req.usuario.id_usuario, req.body.id_anotacao, req.params.id]);
+            response = await mysql.execute("DELETE anotacao FROM anotacao INNER JOIN notebook ON anotacao.id_notebook = notebook.id_notebook  WHERE notebook.id_notebook = ? AND notebook.id_usuario = ? AND anotacao.id_anotacao = ?",
+            [req.body.id_notebook, req.usuario.id_usuario, req.body.id_anotacao]);
             res.status(200).send({
                 mensagem: "Anotacao excluido com sucesso!"
             });
@@ -318,8 +318,7 @@ exports.excluirAnotacao = async (req, res, next) => {
             });
         }
 
-    } catch (error) {''
-
+    } catch (error) {
         res.status(500).send({
             error: error,
         });

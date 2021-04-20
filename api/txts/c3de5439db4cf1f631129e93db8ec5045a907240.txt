@@ -1,11 +1,6 @@
 # SaveNote
 
 
-| Column 1 | Column 2 | Column 3 |
-| -------- | -------- | -------- |
-| Text     | Text     | Text     |
-
-
 Programa para criação de notas inteligentes em Markdown e Aúdio.
 
 ## Instalação
