@@ -9,35 +9,27 @@ declare const showdown: any;
 declare const SimpleMDE: any;
 var simplemde: any;
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css'],
+  selector: 'app-notebook-publico',
+  templateUrl: './notebook-publico.component.html',
+  styleUrls: ['./notebook-publico.component.css']
 })
-export class EditorComponent implements OnInit {
-  
-  dados;
+export class NotebookPublicoComponent implements OnInit {
   notebook_selecionado: number;
   notebook = {
     nome_notebook: '',
     avaliacao_media: 0,
     publico: 0,
+    autor: ''
   };
   anotacoes: any = null;
   anotacao: any;
   anotacao_selecionada: any = null;
-  constructor(private Auth: AuthService, private route: ActivatedRoute) {
-    //var simplemde = new SimpleMDE();
-    //simplemde.value("This text will appear in the editor");
-  }
+  constructor(private Auth: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    
-    //this.carregarEditor('');
-    //let x: any =  document.getElementsByClassName("editor-toolbar")[0] as HTMLElement ;
-    //x.style.display = "none";
     this.route.params.subscribe((parametros) => {
-      if (parametros['id']) {
-        this.notebook_selecionado = parametros['id'];
+      if (parametros['id_notebook']) {
+        this.notebook_selecionado = parametros['id_notebook'];
         console.log(this.notebook_selecionado);
         this.getInfoNotebook(this.notebook_selecionado);
         if (simplemde != undefined) {
@@ -53,7 +45,7 @@ export class EditorComponent implements OnInit {
   getInfoNotebook(notebook) {
     $.ajax({
       type: 'GET',
-      url: environment.api_url + '/documento/notebook/' + notebook,
+      url: environment.api_url + '/documento/notebookPublico/' + notebook,
       dataType: 'json',
       async: true,
       headers: {
@@ -69,56 +61,10 @@ export class EditorComponent implements OnInit {
         //console.log(error);
       });
   }
-
-  criarAnotacao() {
-    Swal.fire({
-      title: 'Criar Anotação',
-      input: 'text',
-      confirmButtonText: 'Criar',
-      cancelButtonText: 'Cancelar',
-      inputPlaceholder: 'Defina um nome para a anotação',
-      showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'Nome não pode ser vazio!';
-        }
-      },
-      preConfirm: (value) => {
-        let dados = {
-          nome_anotacao: value,
-          id_notebook: this.notebook_selecionado,
-        };
-        $.ajax({
-          type: 'POST',
-          url: environment.api_url + '/documento/anotacao',
-          dataType: 'json',
-          data: dados,
-          async: true,
-          headers: {
-            Authorization: 'Bearer ' + this.Auth.getToken(),
-          },
-        })
-          .done((data) => {
-            Swal.fire('Tudo Certo!', 'Notebook Criado com Sucesso!', 'success');
-            this.getInfoAnotacao(this.notebook_selecionado);
-          })
-          .fail((error) => {
-            Swal.fire({
-              showConfirmButton: false,
-              icon: 'error',
-              title: 'Ops...',
-              text: 'Nome já existente',
-              timer: 2000,
-            });
-          });
-      },
-    });
-  }
-
   getInfoAnotacao(notebook) {
     $.ajax({
       type: 'GET',
-      url: environment.api_url + '/documento/anotacoesUsuario/' + notebook,
+      url: environment.api_url + '/documento/anotacoes/' + notebook,
       dataType: 'json',
       async: true,
       headers: {
@@ -163,7 +109,7 @@ export class EditorComponent implements OnInit {
       type: 'GET',
       url:
         environment.api_url +
-        '/documento/nota/' +
+        '/documento/notaPublica/' +
         this.notebook_selecionado +
         '/' +
         anotacao.id_anotacao,
@@ -313,59 +259,5 @@ export class EditorComponent implements OnInit {
       menu.style.display = 'block';
     }
   }
-  
-  excluirAnotacao(anotacao){
 
-    Swal.fire({
-      title: 'Você tem certeza?',
-      text: "Você perderá sua anotação!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, deletar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let dados = {
-          id_notebook: this.notebook_selecionado,
-          id_anotacao: anotacao.id_anotacao
-        }
-        $.ajax({
-          type: 'DELETE',
-          url: environment.api_url + '/documento/anotacao',
-          dataType: 'json',
-          data: dados,
-          async: true,
-          headers: {
-            "Authorization": "Bearer " + this.Auth.getToken()
-          }
-        })
-        .done((data) => {
-          Swal.fire(
-            'Tudo Certo!',
-            'Alterações feitas com Sucesso!',
-            'success'
-          )
-          if (simplemde != undefined) {
-            simplemde.toTextArea();
-            simplemde = null;
-          }
-          this.anotacao_selecionada = null;
-          this.anotacoes = null;
-          this.getInfoAnotacao(this.notebook_selecionado);
-          //this.getMeusNotebooks();
-          //this.router.navigate(['/comunidade']);
-        })
-        .fail((error) => {
-          Swal.fire({
-            showConfirmButton: false,
-            icon: 'error',
-            title: 'Ops...',
-            text: 'Nome já existente',
-            timer: 2000
-          })
-        });
-      }
-    })
-  }
 }

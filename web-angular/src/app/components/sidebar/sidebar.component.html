@@ -28,7 +28,7 @@
         </div>
       </div>
       <!-- sidebar-header  -->
-      <div class="sidebar-search">
+      <!-- <div class="sidebar-search">
         <div>
           <div class="input-group">
             <input type="text" class="form-control search-menu" placeholder="Search...">
@@ -39,12 +39,12 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- sidebar-search  -->
       <div class="sidebar-menu">
         <ul>
           <li *ngIf="logado()" class="header-menu">
-            <span>General</span>
+            <span>Geral</span>
           </li>
           <li *ngIf="logado()" class="sidebar-dropdown active">
             <a>
@@ -62,14 +62,14 @@
 
                   </a>
                 </li>
-                <li *ngFor="let notebook of this.meusnotebooks" class="item"  (click)="clickEvent(notebook)" [ngClass]="notebook.status || notebook_selecionado == notebook.id_notebook ? 'active' : ''">
+                <li *ngFor="let notebook of this.meusnotebooks" class="item"   [ngClass]="notebook.status || notebook_selecionado == notebook.id_notebook ? 'active' : ''">
                   <a> 
-                    <div  style="display: inline-flex;">
+                    <div  (click)="clickEvent(notebook)" style="display: inline-flex; cursor: pointer;">
                       <div class="ellipsis item" [ngClass]="notebook.status || notebook_selecionado == notebook.id_notebook ? 'active' : ''">{{notebook.nome_notebook}}</div>
                     </div>
-                    <span class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%;">x</span>
+                    <span (click) = "excluirNotebook(notebook)"class="badge badge-pill badge-danger delbut" style="margin-top: 1px; font-size: 85%; cursor: pointer;">x</span>
                     <span (click)="editar(notebook)" class="badge badge-pill badge-primary editbut"
-                      style="margin-top: 1px; font-size: 85%; cursor: pointer">✎</span>
+                      style="margin-top: 1px; font-size: 85%; cursor: pointer">&#9998;</span>
 
                   </a>
                 </li>
@@ -85,25 +85,18 @@
             </a>
           </li>
           <li class="header-menu">
-            <span>Extra</span>
+            <span>Extras</span>
           </li>
           <li>
-            <a>
-              <i class="fa fa-book"></i>
-              <span>Documentation</span>
-              <span class="badge badge-pill badge-primary">Beta</span>
-            </a>
-          </li>
-          <li>
-            <a>
-              <i class="fa fa-calendar"></i>
-              <span>Calendar</span>
+            <a href="https://gitlab.com/Rivail/deathnote">
+              <i class="fa fa-folder"></i>
+              <span>GitLab</span>
             </a>
           </li>
           <li>
             <a>
               <i class="fa fa-folder"></i>
-              <span>Examples</span>
+              <span>Sobre</span>
             </a>
           </li>
         </ul>

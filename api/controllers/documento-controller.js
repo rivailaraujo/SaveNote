@@ -8,8 +8,8 @@ const crypto = require('crypto')
 exports.postNotebook = async (req, res, next) => {
     try {
         //SELECT * FROM `notebook` WHERE nome_notebook = 'Segundo Notebook'
-        var response = await mysql.execute("SELECT * FROM `notebook` WHERE nome_notebook = ?",
-            [req.body.nome_notebook]);
+        var response = await mysql.execute("SELECT * FROM `notebook` WHERE nome_notebook = ? AND id_usuario = ?",
+            [req.body.nome_notebook, req.usuario.id_usuario]);
 
         if (response.length > 0) {
             res.status(409).send({
@@ -34,13 +34,15 @@ exports.postNotebook = async (req, res, next) => {
 
 exports.postDocumento = async (req, res, next) => {
     try {
-
+        var response = await mysql.execute("SELECT caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND notebook.id_usuario = ? AND anotacao.id_notebook = ? AND id_anotacao = ?",
+        [req.usuario.id_usuario, req.params.id_notebook, req.params.id_anotacao]);
+        
         data = req.body;
 
-        console.log(data)
+        //console.log(data)
         //var fs = require('fs');
         //console.log(data)
-        fs.writeFile("./txts/teste2.txt", data.txt, function (erro) {
+        fs.writeFile(response[0].caminho, data.txt, function (erro) {
 
             if (erro) {
                 throw erro;
@@ -62,9 +64,13 @@ exports.postDocumento = async (req, res, next) => {
 };
 
 exports.getDocumento = async (req, res, next) => {
+    var response = await mysql.execute("SELECT caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND notebook.id_usuario = ? AND anotacao.id_notebook = ? AND id_anotacao = ?",
+    [req.usuario.id_usuario, req.params.id_notebook, req.params.id_anotacao]);
+
     try {
 
-        fs.readFile('./txts/teste2.txt', 'utf8', function (err, data) {
+
+        fs.readFile(response[0].caminho, 'utf8', function (err, data) {
             if (err) {
 
                 throw err;
@@ -75,7 +81,30 @@ exports.getDocumento = async (req, res, next) => {
 
         });
 
+    } catch (error) {
+        return res.status(500).send({
+            error: error,
+        });
+    }
+};
 
+exports.getDocumentoPublico = async (req, res, next) => {
+    var response = await mysql.execute("SELECT caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND anotacao.id_notebook = ? AND id_anotacao = ?",
+    [req.params.id_notebook, req.params.id_anotacao]);
+
+    try {
+
+
+        fs.readFile(response[0].caminho, 'utf8', function (err, data) {
+            if (err) {
+
+                throw err;
+            }
+            return res.status(200).send(
+                data
+            );
+
+        });
 
     } catch (error) {
         return res.status(500).send({
@@ -180,7 +209,11 @@ exports.excluirNotebook = async (req, res, next) => {
             [req.body.id_notebook]);
 
         if (response.length > 0) {
-            response = await mysql.execute("DELETE FROM `notebook` WHERE `notebook`.`id_notebook` = ?",[req.body.id_notebook]);
+            response = await mysql.execute("DELETE FROM `anotacao` WHERE id_notebook = ?;",
+            [req.body.id_notebook]);
+            
+            response = await mysql.execute("DELETE FROM `notebook` WHERE `notebook`.`id_notebook` = ?",
+            [req.body.id_notebook]);
             res.status(200).send({
                 mensagem: "Notebook excluido com sucesso!"
             });
@@ -261,6 +294,99 @@ exports.getNotebook = async (req, res, next) => {
         } else {
             res.status(200).send({
                 mensagem: "Não há notebook!"
+            });
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.getNotebookPublico = async (req, res, next) => {
+    try {
+        //res.status(200).send(req.usuario);
+
+        var response = await mysql.execute("SELECT nome_notebook, publico, nome AS 'autor', avaliacao_media FROM `notebook`, `usuario` WHERE id_notebook = ? AND notebook.id_usuario = usuario.id_usuario",
+            [req.params.id]);
+
+        if (response.length > 0) {
+            res.status(200).send(response);
+        } else {
+            res.status(200).send({
+                mensagem: "Não há notebook!"
+            });
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.getAnotacoesUsuario = async (req, res, next) => {
+    try {
+        //res.status(200).send(req.usuario);
+
+        var response = await mysql.execute("SELECT id_anotacao, nome_anotacao, caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND notebook.id_usuario = ? AND anotacao.id_notebook = ?",
+            [req.usuario.id_usuario, req.params.id]);
+
+        if (response.length > 0) {
+            res.status(200).send(response);
+        } else {
+            res.status(200).send({
+                mensagem: "Não há Anotações!"
+            });
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+exports.getAnotacoesUsuarioPublica = async (req, res, next) => {
+    try {
+        //res.status(200).send(req.usuario);
+
+        var response = await mysql.execute("SELECT id_anotacao, nome_anotacao, caminho FROM `anotacao`, notebook WHERE anotacao.id_notebook = notebook.id_notebook AND anotacao.id_notebook = ?",
+            [req.params.id]);
+
+        if (response.length > 0) {
+            res.status(200).send(response);
+        } else {
+            res.status(200).send({
+                mensagem: "Não há Anotações!"
+            });
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            error: error,
+        });
+    }
+};
+
+
+exports.excluirAnotacao = async (req, res, next) => {
+    try {
+        //UPDATE `notebook` SET `publico` = '1' WHERE `notebook`.`id_notebook` = 11
+        var response = await mysql.execute("SELECT * FROM `anotacao` WHERE id_anotacao = ?",
+            [req.body.id_anotacao ]);
+
+        if (response.length > 0) {
+            response = await mysql.execute("DELETE anotacao FROM anotacao INNER JOIN notebook ON anotacao.id_notebook = notebook.id_notebook  WHERE notebook.id_notebook = ? AND notebook.id_usuario = ? AND anotacao.id_anotacao = ?",
+            [req.body.id_notebook, req.usuario.id_usuario, req.body.id_anotacao]);
+            res.status(200).send({
+                mensagem: "Anotacao excluido com sucesso!"
+            });
+
+        } else {
+            res.status(400).send({
+                mensagem: "Anotacão não existe!"
             });
         }
 

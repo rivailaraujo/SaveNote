@@ -16,6 +16,7 @@
                     <p>({{notebook.avaliacao_media}})⭐⭐⭐⭐⭐(0)</p>
                     <span _ngcontent-uhf-c47="" id="criar-notebook-buttom" class="badge badge-pill badge-primary criar-notebook"  style="margin-bottom: 0.3rem; " [ngStyle]="{'background-color': notebook.publico == 0 ? '#6c757d' : ''}">Público</span>
                     <span _ngcontent-uhf-c47="" id="criar-notebook-buttom" class="badge badge-pill badge-primary criar-notebook"  style="margin-bottom: 0.3rem; background-color:#6c757d; margin-left: 3px;" [ngStyle]="{'background-color': notebook.publico == 1 ? '#6c757d' : ''}">Privado</span>
+                    <p>Criado por {{notebook.autor}}</p>
                   </div>
                   
                 <div class="anotacoes">
@@ -25,12 +26,7 @@
                       <div class="card-body">
                         <div class="media d-flex">
                           <div class="media-body text-left">
-                            <h6 class="bookcolor">{{anotacao.nome_anotacao}}</h6>
-                            <div>
-                              <button class="buttonlist">Editar</button>
-                              <button (click)="excluirAnotacao(anotacao)"class="buttonlist">Deletar</button>
-                            </div>
-                            
+                            <h6 class="bookcolor">{{anotacao.nome_anotacao}}</h6>   
                           </div>
                           <div class="align-self-center">
                             <i
@@ -45,14 +41,11 @@
                 
                     
                 </div>
-                
-                <a (click) = "criarAnotacao()" class="fixedButton">
-                    <div class="roundedFixedBtn" ><i class="fa fa-plus"></i></div>
-                </a>
+
               </div>
               
               <div class="col full-height" style="padding-left: 0px;">
-                <div *ngIf = "this.anotacoes != null && this.anotacao_selecionada != null" class="editor-toolbar-2"><a (click) = "alterarEditor()" tabindex="-1" class="fa fa-floppy-o">&nbsp;Editar</a></div>
+                <!-- <div *ngIf = "this.anotacoes != null && this.anotacao_selecionada != null" class="editor-toolbar-2"><a (click) = "alterarEditor()" tabindex="-1" class="fa fa-floppy-o">&nbsp;Editar</a></div> -->
                 <textarea *ngIf = "this.anotacoes != null && this.anotacao_selecionada != null "id="teste"></textarea>
                 <div *ngIf = "this.anotacao_selecionada == null "class="card center full-height" style="background-color: #cccccc;">Selecione uma Anotação!!</div>
               </div>
